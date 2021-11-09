@@ -76,9 +76,9 @@
 	"resources": [
 		{
 			"name": "[variables('name_imageTemplate')]",
-			"type": "Microsoft.VirtualMachineImages/imageTemplates",
+			"type": "Microsoft.VirtualMachineImages",
 			"apiVersion": "2020-02-14",
-			"location": "eastus",
+			"location": "[parameters('location')]",
 			"dependsOn": [
 			],
 			"tags": {
