@@ -75,6 +75,7 @@
 	},
 	"resources": [
 		{
+			"name": "wlsBaseImage",
 			"type": "Microsoft.VirtualMachineImages",
 			"apiVersion": "2020-02-14",
 			"location": "[parameters('location')]",
