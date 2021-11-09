@@ -83,8 +83,7 @@
 		    "location": "eastus",
 		    "dependsOn": [],
 			"tags": {
-		    	"imagebuilderTemplate": "oracle-linux7.6",
-		    	"userIdentity": "enabled"
+		    	"imagebuilderTemplate": "oracle-linux7.6"
 			},
 			"properties": {
 				"source": {
