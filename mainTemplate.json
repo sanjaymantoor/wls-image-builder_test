@@ -82,7 +82,7 @@
 			"dependsOn": [
 			],
 			"tags": {
-				"imagebuilderTemplate": "oracle-linux7.6",
+				"imagebuilderTemplate": "ubuntu1804",
 				"userIdentity": "enabled"
 			},
 			"identity": {
@@ -95,16 +95,16 @@
 			"properties": {
 				"source": {
 					"type": "PlatformImage",
-					"publisher": "Oracle",
-					"offer": "Oracle-Linux",
-					"sku": "7.6",
+					"publisher": "Canonical",
+					"offer": "UbuntuServer",
+					"sku": "18.04-LTS",
 					"version": "latest"
 				},
 				"customize": [
 					{
 						"type": "Shell",
 						"name": "setupWLS",
-						"scriptUri": "https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/setupWLS.sh"
+						"scriptUri": "https://raw.githubusercontent.com/danielsollondon/azvmimagebuilder/master/quickquickstarts/customizeScript.sh"
 					}
 				],
 				"distribute": [
