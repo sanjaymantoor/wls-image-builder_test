@@ -1,0 +1,41 @@
+{
+	"name": "wlsBaseImage",
+	"type": "Microsoft.VirtualMachineImages",
+	"apiVersion": "2019-05-01-preview",
+	"location": "eastus",
+	"dependsOn": [
+	],
+	"tags": {
+		"imagebuilderTemplate": "ubuntu1804",
+		"userIdentity": "enabled"
+	},
+	"identity": {
+		"type": "UserAssigned",
+		"userAssignedIdentities": {
+			"[parameters('userAssignedIdentity')]": {
+			}
+		}
+	},
+	"properties": {
+		"source": {
+			"type": "PlatformImage",
+			"publisher": "Canonical",
+			"offer": "UbuntuServer",
+			"sku": "18.04-LTS",
+			"version": "latest"
+		},
+		"customize": [
+			{
+				"type": "Shell",
+				"name": "setupWLS",
+				"scriptUri": "https://raw.githubusercontent.com/danielsollondon/azvmimagebuilder/master/quickquickstarts/customizeScript.sh"
+			}
+		],
+		"distribute": [
+			{
+				"type": "VHD",
+				"runOutputName": "wlsOL7.6"
+			}
+		]
+	}
+}
