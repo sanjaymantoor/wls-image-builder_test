@@ -88,7 +88,7 @@
 			"identity": {
 				"type": "UserAssigned",
 				"userAssignedIdentities": {
-					"/subscriptions/260524c9-7a4d-4483-8d85-de54f9c40ae8/resourcegroups/SMANTOOR_RG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/aibBuiUserId1633432558": {
+					"[parameters('userAssignedIdentity')]": {
 					}
 				}
 			},
