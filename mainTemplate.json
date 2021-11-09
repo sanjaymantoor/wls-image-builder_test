@@ -86,12 +86,6 @@
 		    	"imagebuilderTemplate": "oracle-linux7.6",
 		    	"userIdentity": "enabled"
 			},
-			"identity": {
-				"type": "UserAssigned",
-				"userAssignedIdentities": {
-							"[parameters('userAssignedIdentity')]": {}
-				}
-			},
 			"properties": {
 				"source": {
 					"type": "PlatformImage",
