@@ -9,7 +9,7 @@ function echo_stderr ()
 #Function to display usage message
 function usage()
 {
-  echo_stderr "./installWeblogic.sh <acceptOTNLicenseAgreement> <otnusername> <otnpassword> <shiphomeurl> <jdkurl> <wlsversion> <jdkversion>"
+  echo_stderr "./installWeblogic.sh <<< <parameters>"
 }
 
 
@@ -301,13 +301,7 @@ then
     exit 1
 fi
 
-export acceptOTNLicenseAgreement="$1"
-export otnusername="$2"
-export otnpassword="$3"
-export shiphomeurl="$4"
-export jdkurl="$5"
-export wlsversion="$6"
-export jdkversion="$7"
+read acceptOTNLicenseAgreement otnusername otnpassword shiphomeurl jdkurl wlsversion jdkversion
 
 if [ -z "$acceptOTNLicenseAgreement" ];
 then

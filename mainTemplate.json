@@ -71,7 +71,8 @@
 		}
 	},
 	"variables": {
-		"name_imageTemplate": "wlsbaseimage"
+		"name_imageTemplate": "wlsbaseimage",
+		"name_imagebuilderTemplate": "[concat('wlsol',parameters('linuxOSVersion')]"
 	},
 	"resources": [
 		{
@@ -82,7 +83,7 @@
 			"dependsOn": [
 			],
 			"tags": {
-				"imagebuilderTemplate": "ubuntu1804",
+				"imagebuilderTemplate": "[varaiables('name_imagebuilderTemplate')]",
 				"userIdentity": "enabled"
 			},
 			"identity": {
@@ -95,9 +96,9 @@
 			"properties": {
 				"source": {
 					"type": "PlatformImage",
-					"publisher": "Canonical",
-					"offer": "UbuntuServer",
-					"sku": "18.04-LTS",
+					"publisher": "Oracle",
+					"offer": "Oracle-Linux",
+					"sku": "[parameters('linuxOSVersion')]",
 					"version": "latest"
 				},
 				"customize": [
