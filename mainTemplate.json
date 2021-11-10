@@ -72,7 +72,7 @@
 	},
 	"variables": {
 		"name_imageTemplate": "wlsbaseimage",
-		"name_imagebuilderTemplate": "[concat('wlsol',parameters('linuxOSVersion')]"
+		"name_imagebuilderTemplate": "[concat('wlsol',parameters('linuxOSVersion'))]"
 	},
 	"resources": [
 		{
