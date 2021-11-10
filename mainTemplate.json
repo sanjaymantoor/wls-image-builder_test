@@ -83,7 +83,7 @@
 			"dependsOn": [
 			],
 			"tags": {
-				"imagebuilderTemplate": "[varaiables('name_imagebuilderTemplate')]",
+				"imagebuilderTemplate": "[variables('name_imagebuilderTemplate')]",
 				"userIdentity": "enabled"
 			},
 			"identity": {
