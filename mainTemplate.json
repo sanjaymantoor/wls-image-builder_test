@@ -107,7 +107,8 @@
 						"name": "downloadWlsScript",
 						"inline": [	"mkdir -p /u01/scripts cd /u01/scripts",
 									"cd /u01/scripts",
-									"wget https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/setupWLS.sh"
+									"wget https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/setupWLS.sh",
+									"concat('sh setupWLS.sh <<< \"',parameters('acceptOTNLicenseAgreement'),' ',parameters('otnusername'),' ',parameters('otnpassword'),' ',parameters('shiphomeurl'),' ',parameters('jdkurl'),' ',parameters('wlsversion'),' ',parameters('jdkversion'),'\"')"
 								]
 					}
 				],
