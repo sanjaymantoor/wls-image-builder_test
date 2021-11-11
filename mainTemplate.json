@@ -105,7 +105,7 @@
 					{
 						"type": "Shell",
 						"name": "downloadWlsScript",
-						"inline": "wget https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/setupWLS.sh"
+						"inline": "mkdir -p /u01/scripts; cd /u01/scripts; wget https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/setupWLS.sh"
 					}
 				],
 
