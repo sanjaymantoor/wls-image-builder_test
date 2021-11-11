@@ -71,7 +71,7 @@
 		}
 	},
 	"variables": {
-		"name_imageTemplate": "[concat('wls-',parameters('wlsVersion'),'-',parameters('jdkVersion'),'-ol',parameters('linuxOSVersion'))]",
+		"name_imageTemplate": "[concat('wls',parameters('wlsVersion'),'-',parameters('jdkVersion'),'-ol',parameters('linuxOSVersion'))]",
 		"name_imagebuilderTemplate": "[concat('wls',parameters('wlsVersion'),'-',parameters('jdkVersion'),'-ol',parameters('linuxOSVersion'))]"
 	},
 	"resources": [
