@@ -108,21 +108,7 @@
 						"inline": "wget https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/setupWLS.sh"
 					}
 				],
-				"customize": [
-					{
-						"type": "Shell",
-						"name": "setupWLS",
-						"inline": "[concat('sh setupWLS.sh <<< \"',parameters('acceptOTNLicenseAgreement'),' ',parameters('otnusername'),' ',parameters('otnpassword'),' ',parameters('shiphomeurl'),' ',parameters('jdkurl'),' ',parameters('wlsversion'),' ',parameters('jdkversion'),'\"')]"
-					}
-				],
-				"customize": [
-					{
-						"type": "Shell",
-						"name": "Verify WLS",
-						"inline": "ls /u01/"
-					}
-				],
-				
+
 				"distribute": [
 					{
 						"type": "VHD",
