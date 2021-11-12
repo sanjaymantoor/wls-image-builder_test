@@ -294,6 +294,7 @@ function installWLS()
 
 CURR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export BASE_DIR="$(readlink -f ${CURR_DIR})"
+export TEST_COUNT=1
 
 read acceptOTNLicenseAgreement otnusername otnpassword shiphomeurl jdkurl wlsversion jdkversion
 
@@ -348,7 +349,7 @@ export MSSQL_JDBC_DRIVER_URL=https://repo.maven.apache.org/maven2/com/microsoft/
 export MSSQL_JDBC_DRIVER=${MSSQL_JDBC_DRIVER_URL##*/}
 
 echo "==============================================================================================="
-echo "######################           Starting WebLogic setup            ###########################" 
+echo "######################           Starting WebLogic setup           ###########################" 
 echo "==============================================================================================="
 
 #add oracle group and user

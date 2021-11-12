@@ -109,7 +109,9 @@
 						"inline": [	"mkdir -p /u01/scripts cd /u01/scripts",
 									"cd /u01/scripts",
 									"wget https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/setupWLS.sh",
-									"[variables('name_scriptCommand')]"
+									"[variables('name_scriptCommand')]",
+									"sudo reboot ; sleep 10m",
+									"cat /etc/os-release"
 								]
 					}
 				],
