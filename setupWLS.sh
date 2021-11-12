@@ -347,6 +347,10 @@ export POSTGRESQL_JDBC_DRIVER=${POSTGRESQL_JDBC_DRIVER_URL##*/}
 export MSSQL_JDBC_DRIVER_URL=https://repo.maven.apache.org/maven2/com/microsoft/sqlserver/mssql-jdbc/7.4.1.jre8/mssql-jdbc-7.4.1.jre8.jar
 export MSSQL_JDBC_DRIVER=${MSSQL_JDBC_DRIVER_URL##*/}
 
+echo "==========================================================================================================="
+echo "###################### 				 Starting WebLogic setup				  ###########################" 
+echo "==========================================================================================================="
+
 #add oracle group and user
 echo "Adding oracle user and group..."
 groupname="oracle"
@@ -355,8 +359,6 @@ user_home_dir="/u01/oracle"
 USER_GROUP=${groupname}
 sudo groupadd $groupname
 sudo useradd -d ${user_home_dir} -g $groupname $username
-
-
 
 
 JDK_PATH="/u01/app/jdk"
@@ -369,8 +371,6 @@ sudo mkdir -p $JDK_PATH
 sudo mkdir -p $WLS_PATH
 sudo rm -rf $JDK_PATH/*
 sudo rm -rf $WLS_PATH/*
-
-cleanup
 
 
 #download jdk from OTN
@@ -452,7 +452,9 @@ testJDBCDrivers
 
 cleanup
 
-echo "Weblogic Server Installation Completed succesfully."
+echo "==========================================================================================================="
+echo "###################### 				 WebLogic setup completed				  ###########################" 
+echo "==========================================================================================================="
 
 #sudo yum upgrade -y --disablerepo=ol7_latest --enablerepo=ol7_u3_base
 
