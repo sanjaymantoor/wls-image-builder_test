@@ -348,7 +348,7 @@ export MSSQL_JDBC_DRIVER_URL=https://repo.maven.apache.org/maven2/com/microsoft/
 export MSSQL_JDBC_DRIVER=${MSSQL_JDBC_DRIVER_URL##*/}
 
 echo "==============================================================================================="
-echo "###################### 			Starting WebLogic setup			  ###########################" 
+echo "######################           Starting WebLogic setup            ###########################" 
 echo "==============================================================================================="
 
 #add oracle group and user
@@ -453,7 +453,7 @@ testJDBCDrivers
 cleanup
 
 echo "==============================================================================================="
-echo "###################### 			WebLogic setup completed		  ###########################" 
+echo "######################           WebLogic setup completed           ###########################" 
 echo "==============================================================================================="
 
 #sudo yum upgrade -y --disablerepo=ol7_latest --enablerepo=ol7_u3_base
