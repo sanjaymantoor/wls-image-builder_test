@@ -3,7 +3,7 @@
 #Function to output message to StdErr
 function echo_stderr ()
 {
-    echo "$@" >&6
+    echo "$@" >&2
 }
 
 #Function to display usage message
@@ -295,12 +295,6 @@ function installWLS()
 CURR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export BASE_DIR="$(readlink -f ${CURR_DIR})"
 
-if [ $# -ne 7 ]
-then
-    usage
-    exit 1
-fi
-
 read acceptOTNLicenseAgreement otnusername otnpassword shiphomeurl jdkurl wlsversion jdkversion
 
 if [ -z "$acceptOTNLicenseAgreement" ];
@@ -319,6 +313,30 @@ if [[ -z "$otnusername" || -z "$otnpassword" ]]
 then
         echo_stderr "otnusername or otnpassword is required. "
         exit 1
+fi
+
+if [ -z "$shiphomeurl" ];
+then
+        echo_stderr "wls shiphome url is required. "
+        exit 1		
+fi
+
+if [ -z "$jdkurl" ];
+then
+        echo_stderr "jdk url is required. "
+        exit 1		
+fi
+
+if [ -z "$wlsversion" ];
+then
+        echo_stderr "wlsversion is required. "
+        exit 1		
+fi
+
+if [ -z "$jdkversion" ];
+then
+        echo_stderr "jdkversion is required. "
+        exit 1		
 fi
 
 export WLS_VER=$wlsversion
