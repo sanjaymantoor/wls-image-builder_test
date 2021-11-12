@@ -73,7 +73,7 @@
 	"variables": {
 		"name_imageTemplate": "[concat('wls',parameters('wlsVersion'),'-',parameters('jdkVersion'),'-ol',parameters('linuxOSVersion'))]",
 		"name_imagebuilderTemplate": "[concat('wls',parameters('wlsVersion'),'-',parameters('jdkVersion'),'-ol',parameters('linuxOSVersion'))]",
-		"name_command": "sh setupWLS.sh <<< ',' ','\"y wlsqa.oracle@gmail.com Qawls@579 https://download.oracle.com/otn/nt/middleware/14c/14110/fmw_14.1.1.0.0_wls_Disk1_1of1.zip https://download.oracle.com/otn/java/jdk/11.0.11+9/ab2da78f32ed489abb3ff52fd0a02b1c/jdk-11.0.11_linux-x64_bin.tar.gz 14.1.1.0.0 jdk-11.0.11 \""
+		"name_command": "sh setupWLS.sh <<< \"y wlsqa.oracle@gmail.com Qawls@579 https://download.oracle.com/otn/nt/middleware/14c/14110/fmw_14.1.1.0.0_wls_Disk1_1of1.zip https://download.oracle.com/otn/java/jdk/11.0.11+9/ab2da78f32ed489abb3ff52fd0a02b1c/jdk-11.0.11_linux-x64_bin.tar.gz 14.1.1.0.0 jdk-11.0.11\""
 	},
 	"resources": [
 		{
