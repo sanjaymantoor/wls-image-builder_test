@@ -106,12 +106,18 @@
 					{
 						"type": "Shell",
 						"name": "setupWLS",
-						"expect_disconnect": "true",
+						"expect_disconnect": true,
 						"inline": [	"mkdir -p /u01/scripts cd /u01/scripts",
 									"cd /u01/scripts",
 									"wget https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/setupWLS.sh",
-									"[variables('name_scriptCommand')]",
-									"sudo reboot",
+									"[variables('name_scriptCommand')]"
+								]
+					},
+					{
+						"type": "Shell",
+						"name": "reboot",
+						"expect_disconnect": true,
+						"inline": [	"sudo reboot",
 									"cat /etc/os-release"
 								]
 					}
