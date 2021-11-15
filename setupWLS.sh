@@ -457,7 +457,14 @@ echo "==========================================================================
 echo "######################           WebLogic setup completed           ###########################" 
 echo "==============================================================================================="
 
-#sudo yum upgrade -y --disablerepo=ol7_latest --enablerepo=ol7_u3_base
+echo "==============================================================================================="
+echo "######################                OS Updating			           ###########################"
+echo "===============================================================================================" 
+osVersion=`cat /etc/os-release | grep VERSION_ID |cut -f2 -d"="| sed 's/\"//g'`
+majoVersion=`echo $OS_VERSION |cut -f1 -d"."`
+minorVersion=`echo $OS_VERSION |cut -f2 -d"."`
+echo yum upgrade --disablerepo=ol7_latest  --enablerepo=ol${majoVersion}_u${minorVersion}_base
+yum upgrade --disablerepo=ol7_latest  --enablerepo=ol${majoVersion}_u${minorVersion}_base
 
-#sudo reboot
+
 
