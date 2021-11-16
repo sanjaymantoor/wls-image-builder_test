@@ -45,12 +45,12 @@ function updatePatch()
 	cd ${opatchWork}
 	echo "Opatch version before updating patch"
 	runuser -l oracle -c "$oracleHome/OPatch/opatch version"
-   	runuser -l oracle -c "unzip $filename"
+   	unzip $filename
    	opatchFileName=`find . -name opatch_generic.jar`
-	runuser -l oracle -c "cd $oracleHome/wlserver/server/bin ; . ./setWLSEnv.sh"
 	command="java -jar ${opatchFileName} -silent oracle_home=$oracleHome"
+	sudo chown -R $username:$groupname ${opatchWork}
 	echo "Executing optach update command:"${command}
-	runuser -l oracle -c "${command}"
+	runuser -l oracle -c "cd $oracleHome/wlserver/server/bin ; . ./setWLSEnv.sh ;cd ${opatchWork}; ${command}"
 	echo "Opatch version after updating patch"
 	runuser -l oracle -c "$oracleHome/OPatch/opatch version"
 }
