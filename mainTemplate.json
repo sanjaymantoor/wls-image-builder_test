@@ -122,15 +122,7 @@
 						"type": "Shell",
 						"name": "setupWLS",
 						"inline": [	"mkdir -p /u01/scripts",
-									"cd /u01/scripts",
-									"wget https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/setupWLS.sh",
-									"[variables('name_scriptCommand')]"
-								]
-					},
-					{
-						"type": "Shell",
-						"name": "Test",
-						"inline": [	"echo REBOOTING THE MACHINE"
+									"cd /u01/scripts"
 								]
 					}
 				],
