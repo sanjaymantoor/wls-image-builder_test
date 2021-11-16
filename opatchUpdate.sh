@@ -23,13 +23,12 @@ function cleanup()
 function downloadUsingWget()
 {
 	sudo mkdir -p ${opatchWork}
-	sudo chown -R $username:$groupname ${opatchWork}
 	downloadURL=$1
 	filename=${downloadURL##*/}
 	for in in {1..5}
 	do
 		cd ${opatchWork}
-		runuser -l oracle -c "wget $downloadURL"
+		wget $downloadURL
 		if [ $? != 0 ];
      	then
         	echo "opatch patch download failed with $downloadURL. Trying again..."
@@ -39,6 +38,7 @@ function downloadUsingWget()
         break
      fi
    done
+   sudo chown -R $username:$groupname ${opatchWork}
 }
 
 function updatePatch()
