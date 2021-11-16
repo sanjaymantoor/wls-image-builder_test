@@ -129,6 +129,15 @@
 					},
 					{
 						"type": "Shell",
+						"name": "opatchUpdate",
+						"inline": [	"mkdir -p /u01/scripts cd /u01/scripts",
+									"cd /u01/scripts",
+									"wget https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/opatchUpdate.sh",
+									"[variables('name_opatchUpdate')]"
+								]
+					},
+					{
+						"type": "Shell",
 						"expect_disconnect": true,
 						"valid_exit_codes": [0, 2300218],
 						"name": "reboot",
