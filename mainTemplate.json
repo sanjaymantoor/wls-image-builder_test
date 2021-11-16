@@ -138,9 +138,7 @@
 					},
 					{
 						"type": "Shell",
-						"expect_disconnect": true,
-						"valid_exit_codes": [0, 2300218],
-						"name": "reboot",
+						"name": "Test",
 						"expect_disconnect": true,
 						"inline": [	"echo REBOOTING THE MACHINE"
 								]
