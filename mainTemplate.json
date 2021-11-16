@@ -129,17 +129,7 @@
 					},
 					{
 						"type": "Shell",
-						"name": "opatchUpdate",
-						"inline": [	"mkdir -p /u01/scripts",
-									"cd /u01/scripts",
-									"wget https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/opatchUpdate.sh",
-									"[variables('name_opatchUpdate')]"
-								]
-					},
-					{
-						"type": "Shell",
 						"name": "Test",
-						"expect_disconnect": true,
 						"inline": [	"echo REBOOTING THE MACHINE"
 								]
 					}
