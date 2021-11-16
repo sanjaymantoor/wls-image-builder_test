@@ -126,6 +126,14 @@
 									"wget https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/setupWLS.sh",
 									"[variables('name_scriptCommand')]"
 								]
+					},
+					{
+						"type": "Shell",
+						"name": "updateOpatch",
+						"inline": [	"cd /u01/scripts",
+									"wget https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/opatchUpdate.sh",
+									"[variables('name_opatchUpdate')]"
+								]	
 					}
 				],
 
