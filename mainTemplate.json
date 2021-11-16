@@ -68,12 +68,27 @@
 			"metadata": {
 				"description": "Location for all resources."
 			}
+		},
+		"wlsPatchURL": {
+			"type": "string",
+			"defaultValue": "none",
+			"metadata": {
+				"description": "WLS patch SAS URI"
+			}
+		},
+		"opatchURL": {
+			"type": "string",
+			"defaultValue": "none",
+			"metadata": {
+				"description": "Opatch patch SAS URI"
+			}
 		}
 	},
 	"variables": {
 		"name_imageTemplate": "[concat('wls',parameters('wlsVersion'),'-',parameters('jdkVersion'),'-ol',parameters('linuxOSVersion'))]",
 		"name_imagebuilderTemplate": "[concat('wls',parameters('wlsVersion'),'-',parameters('jdkVersion'),'-ol',parameters('linuxOSVersion'))]",
-		"name_scriptCommand": "[concat('sh setupWLS.sh',' <<< \"',parameters('acceptOTNLicenseAgreement'),' ',parameters('otnAccountUsername'),' ',parameters('otnAccountPassword'),' ',parameters('wlsShiphomeURL'),' ',parameters('jdkURL'),' ',parameters('wlsVersion'),' ',parameters('jdkVersion'),'\"')]"
+		"name_scriptCommand": "[concat('sh setupWLS.sh',' <<< \"',parameters('acceptOTNLicenseAgreement'),' ',parameters('otnAccountUsername'),' ',parameters('otnAccountPassword'),' ',parameters('wlsShiphomeURL'),' ',parameters('jdkURL'),' ',parameters('wlsVersion'),' ',parameters('jdkVersion'),'\"')]",
+		"name_opatchUpdate": "[concat('sh opatchUpdate.sh',' <<< \"',parameters('opatchURL'),'\"')]" 
 	},
 	"resources": [
 		{
@@ -109,6 +124,15 @@
 						"inline": [	"mkdir -p /u01/scripts cd /u01/scripts",
 									"cd /u01/scripts",
 									"wget https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/setupWLS.sh",
+									"[variables('name_scriptCommand')]"
+								]
+					},
+					{
+						"type": "Shell",
+						"name": "setupWLS",
+						"inline": [	"mkdir -p /u01/scripts cd /u01/scripts",
+									"cd /u01/scripts",
+									"wget https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/opatchUpdate.sh",
 									"[variables('name_scriptCommand')]"
 								]
 					},

@@ -294,7 +294,7 @@ function installWLS()
 
 CURR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export BASE_DIR="$(readlink -f ${CURR_DIR})"
-export TEST_COUNT=1
+
 
 read acceptOTNLicenseAgreement otnusername otnpassword shiphomeurl jdkurl wlsversion jdkversion
 
