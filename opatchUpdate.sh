@@ -60,18 +60,15 @@ function updatePatch()
 
 read downloadURL
 
-if [ $downloadURL == "none" ];
+if [ $downloadURL != "none" ];
 then
-	echo "No patch update is required for Opatch"
-	exit 0
+	CURR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+	BASE_DIR="$(readlink -f ${CURR_DIR})"
+	oracleHome="/u01/app/wls/install/oracle/middleware/oracle_home"
+	opatchWork="/u01/app/opatch"
+
+	downloadUsingWget
+	updatePatch
+	cleanup
 fi	
-
-CURR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-BASE_DIR="$(readlink -f ${CURR_DIR})"
-oracleHome="/u01/app/wls/install/oracle/middleware/oracle_home"
-opatchWork="/u01/app/opatch"
-
-downloadUsingWget
-updatePatch
-cleanup
   
