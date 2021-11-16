@@ -23,7 +23,6 @@ function cleanup()
 function downloadUsingWget()
 {
 	sudo mkdir -p ${opatchWork}
-	downloadURL=$1
 	filename=${downloadURL##*/}
 	for in in {1..5}
 	do
