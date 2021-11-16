@@ -9,7 +9,7 @@ function echo_stderr ()
 #Function to display usage message
 function usage()
 {
-  echo_stderr "./installWeblogic.sh <<< <parameters>"
+  echo_stderr "./setupWLS.sh <<< <parameters>"
 }
 
 
