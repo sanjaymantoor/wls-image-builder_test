@@ -57,7 +57,7 @@ function updatePatch()
 	then
 		echo "Applying Stack Patch Bundle"
 		command="${oracleHome}/OPatch/opatch napply silent -oh ${oracleHome}  -phBaseFile ${patchListFile}"
-		runuser -l oracle -c "cd ${wlsPatchWork} ; unset WEBLOGIC_CLASSPATH ; unset CLASSPATH ; ${command}"
+		runuser -l oracle -c "cd ${wlsPatchWork}/*/binary_patches ; export PATH=${oracleHome}/OPatch:$PATH ; opatch napply silent -oh ${oracleHome} -phBaseFile linux64_patchlist.txt"
 	else
 		echo "Applying regular wls patch"
 		cd *
