@@ -85,6 +85,6 @@ username="oracle"
 if [ $downloadURL != "none" ];
 then
 	downloadUsingWget
-	updatePatch
-	cleanup
+	#updatePatch
+	#cleanup
 fi
