@@ -151,14 +151,6 @@
 									"[variables('name_wlspatchUpdateCommand')]",
 									"rm -rf /u01/scripts"									
 						]	
-					},
-					{
-						"type": "Shell",
-						"name": "clearHistory",
-						"inline": [
-									"runuser -l oracle -c \"history -c && history -w \"",
-									"sudo history -c && history -w "			
-						]												
 					}
 				],
 
