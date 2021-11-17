@@ -156,8 +156,8 @@
 						"type": "Shell",
 						"name": "clearHistory",
 						"inline": [
-									"runuser -l oracle -c \"history -c && history -w && exit\"",
-									"sudo history -c && history -w && exit"			
+									"runuser -l oracle -c \"history -c && history -w \"",
+									"sudo history -c && history -w "			
 						]												
 					}
 				],
