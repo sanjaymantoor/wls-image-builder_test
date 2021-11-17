@@ -52,7 +52,7 @@ function updatePatch()
 	sudo chown -R $username:$groupname ${wlsPatchWork}
 	#Check whether it is bundle patch
 	patchListFile=`find . -name linux64_patchlist.txt`
-	
+	ls -lt ${patchListFile}
 	if [[ "${patchListFile}" == *"linux64_patchlist.txt"* ]]; 
 	then
 		echo "Applying Stack Patch Bundle"
