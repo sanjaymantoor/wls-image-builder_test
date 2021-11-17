@@ -85,5 +85,5 @@ if [ $downloadURL != "none" ];
 then
 	downloadUsingWget
 	updatePatch
-	cleanup
+#	cleanup
 fi
