@@ -58,7 +58,7 @@ function updatePatch()
 		echo "Applying Stack Patch Bundle"
 		command="${oracleHome}/OPatch/opatch napply -oh ${oracleHome}  -phBaseFile ${patchListFile}"
 		echo $command	
-		runuser -l oracle -c "unset WEBLOGIC_CLASSPATH ; unset CLASSPATH ; ${command}"
+		#runuser -l oracle -c "unset WEBLOGIC_CLASSPATH ; unset CLASSPATH ; ${command}"
 	else
 		echo "Applying regular wls patch"
 		cd *
