@@ -30,14 +30,13 @@ function downloadUsingWget()
 		wget $downloadURL
 		if [ $? != 0 ];
      	then
-        	echo "opatch patch download failed with $downloadURL. Trying again..."
+        	echo "${filename} patch download failed with $downloadURL. Trying again..."
 			sudo rm -f $filename
      	else 
-        	echo "$opatch patch Downloaded successfully"
+        	echo "${filename} patch Downloaded successfully"
         break
      fi
    done
-   sudo chown -R $username:$groupname ${opatchWork}
 }
 
 function updatePatch()
@@ -45,6 +44,7 @@ function updatePatch()
 	cd ${opatchWork}
 	echo "Opatch version before updating patch"
 	runuser -l oracle -c "$oracleHome/OPatch/opatch version"
+	filename=${downloadURL##*/}
    	unzip $filename
    	opatchFileName=`find . -name opatch_generic.jar`
 	command="java -jar ${opatchFileName} -silent oracle_home=$oracleHome"
@@ -59,13 +59,15 @@ function updatePatch()
 
 read downloadURL
 
+BASE_DIR="$(readlink -f ${CURR_DIR})"
+CURR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+oracleHome="/u01/app/wls/install/oracle/middleware/oracle_home"
+opatchWork="/u01/app/opatch"
+groupname="oracle"
+username="oracle"
+
 if [ $downloadURL != "none" ];
 then
-	CURR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-	BASE_DIR="$(readlink -f ${CURR_DIR})"
-	oracleHome="/u01/app/wls/install/oracle/middleware/oracle_home"
-	opatchWork="/u01/app/opatch"
-
 	downloadUsingWget
 	updatePatch
 	cleanup
