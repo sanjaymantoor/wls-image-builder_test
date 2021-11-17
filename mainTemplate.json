@@ -88,7 +88,8 @@
 		"name_imageTemplate": "[concat('wls',parameters('wlsVersion'),'-',parameters('jdkVersion'),'-ol',parameters('linuxOSVersion'))]",
 		"name_imagebuilderTemplate": "[concat('wls',parameters('wlsVersion'),'-',parameters('jdkVersion'),'-ol',parameters('linuxOSVersion'))]",
 		"name_scriptCommand": "[concat('sh setupWLS.sh',' <<< \"',parameters('acceptOTNLicenseAgreement'),' ',parameters('otnAccountUsername'),' ',parameters('otnAccountPassword'),' ',parameters('wlsShiphomeURL'),' ',parameters('jdkURL'),' ',parameters('wlsVersion'),' ',parameters('jdkVersion'),'\"')]",
-		"name_opatchUpdate": "[concat('sh opatchUpdate.sh',' <<< \"',parameters('opatchURL'),'\"')]" 
+		"name_opatchUpdateCommand": "[concat('sh opatchUpdate.sh',' <<< \"',parameters('opatchURL'),'\"')]",
+		"name_wlspatchUpdateCommand":  "[concat('sh wlsPatchUpdate.sh',' <<< \"',parameters('wlsPatchURL'),'\"')]"
 	},
 	"resources": [
 		{
@@ -121,19 +122,43 @@
 					{
 						"type": "Shell",
 						"name": "setupWLS",
-						"inline": [	"mkdir -p /u01/scripts",
+						"inline": [	
+									"mkdir -p /u01/scripts",
 									"cd /u01/scripts",
 									"wget https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/setupWLS.sh",
-									"[variables('name_scriptCommand')]"
-								]
+									"[variables('name_scriptCommand')]",
+									"rm -rf /u01/scripts"
+						]
 					},
 					{
 						"type": "Shell",
 						"name": "updateOpatch",
-						"inline": [	"cd /u01/scripts",
+						"inline": [	
+									"mkdir -p /u01/scripts",
+									"cd /u01/scripts",
 									"wget https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/opatchUpdate.sh",
-									"[variables('name_opatchUpdate')]"
-								]	
+									"[variables('name_opatchUpdateCommand')]",
+									"rm -rf /u01/scripts"									
+						]	
+					},
+					{
+						"type": "Shell",
+						"name": "updateWLSPatch",
+						"inline": [	
+									"mkdir -p /u01/scripts",				
+									"cd /u01/scripts",
+									"wget https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/wlsPatchUpdate.sh",
+									"[variables('name_wlspatchUpdateCommand')]",
+									"rm -rf /u01/scripts"									
+						]	
+					},
+					{
+						"type": "Shell",
+						"name": "clearHistory",
+						"inline": [
+									"runuser -l oracle -c \"history -c && history -w && exit\"",
+									"sudo history -c && history -w && exit"			
+						]												
 					}
 				],
 
