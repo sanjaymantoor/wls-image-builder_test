@@ -57,8 +57,7 @@ function updatePatch()
 	then
 		echo "Applying Stack Patch Bundle"
 		command="${oracleHome}/OPatch/opatch napply -oh ${oracleHome}  -phBaseFile ${patchListFile}"
-		echo $command	
-		#runuser -l oracle -c "unset WEBLOGIC_CLASSPATH ; unset CLASSPATH ; ${command}"
+		runuser -l oracle -c "cd ${wlsPatchWork} ; unset WEBLOGIC_CLASSPATH ; unset CLASSPATH ; ${command}"
 	else
 		echo "Applying regular wls patch"
 		cd *
@@ -85,6 +84,6 @@ username="oracle"
 if [ $downloadURL != "none" ];
 then
 	downloadUsingWget
-	#updatePatch
-	#cleanup
+	updatePatch
+	cleanup
 fi
