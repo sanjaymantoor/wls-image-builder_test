@@ -125,7 +125,7 @@
 						"inline": [	
 									"mkdir -p /u01/scripts",
 									"cd /u01/scripts",
-									"wget https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/setupWLS.sh",
+									"curl https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/setupWLS.sh",
 									"[variables('name_scriptCommand')]",
 									"rm -rf /u01/scripts"
 						]
@@ -136,7 +136,7 @@
 						"inline": [	
 									"mkdir -p /u01/scripts",
 									"cd /u01/scripts",
-									"wget https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/opatchUpdate.sh",
+									"curl https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/opatchUpdate.sh",
 									"[variables('name_opatchUpdateCommand')]",
 									"rm -rf /u01/scripts"									
 						]	
@@ -147,7 +147,7 @@
 						"inline": [	
 									"mkdir -p /u01/scripts",				
 									"cd /u01/scripts",
-									"wget https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/wlsPatchUpdate.sh",
+									"curl https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/wlsPatchUpdate.sh",
 									"[variables('name_wlspatchUpdateCommand')]",
 									"rm -rf /u01/scripts"									
 						]	
