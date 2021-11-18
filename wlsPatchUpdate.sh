@@ -82,7 +82,7 @@ function updatePatch()
 		checkSuccess $? "Error : WebLogic patch update failed"
 	fi
 	echo "WLS patch details after applying patch"
-	runuser -l oracle -c "$oracleHome/OPatch/opatch lspatches"
+	runuser -l oracle -c "$oracleHome/OPatch/opatch lsinventory"
 }
 
 

@@ -151,6 +151,14 @@
 									"[variables('name_wlspatchUpdateCommand')]",
 									"rm -rf /u01/scripts"									
 						]	
+					},
+					{
+						"type": "Shell",
+						"name": "updateWLSPatch",
+						"validExitCodes": [0-80],
+						"inline": [
+									"sudo reboot"
+						]	
 					}
 				],
 
