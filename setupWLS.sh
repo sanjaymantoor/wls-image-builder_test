@@ -348,9 +348,9 @@ export POSTGRESQL_JDBC_DRIVER=${POSTGRESQL_JDBC_DRIVER_URL##*/}
 export MSSQL_JDBC_DRIVER_URL=https://repo.maven.apache.org/maven2/com/microsoft/sqlserver/mssql-jdbc/7.4.1.jre8/mssql-jdbc-7.4.1.jre8.jar
 export MSSQL_JDBC_DRIVER=${MSSQL_JDBC_DRIVER_URL##*/}
 
-echo "==============================================================================================="
-echo "######################           Starting WebLogic setup           ###########################" 
-echo "==============================================================================================="
+echo "================================================================="
+echo "##########           Starting WebLogic setup           ##########" 
+echo "================================================================="
 
 #add oracle group and user
 echo "Adding oracle user and group..."
@@ -453,22 +453,22 @@ testJDBCDrivers
 
 cleanup
 
-echo "===================================================================================="
-echo "#################           WebLogic setup completed           #####################" 
-echo "===================================================================================="
+echo "================================================================="
+echo "##########           WebLogic setup completed          ##########"
+echo "================================================================="
 
 
-echo "===================================================================================="
-echo "#################                OS updating			         #####################" 
-echo "====================================================================================" 
+echo "================================================================="
+echo "##########           Update software to latest         ##########" 
+echo "=================================================================" 
 osVersion=`cat /etc/os-release | grep VERSION_ID |cut -f2 -d"="| sed 's/\"//g'`
 majorVersion=`echo $osVersion |cut -f1 -d"."`
 minorVersion=`echo $osVersion |cut -f2 -d"."`
 echo yum upgrade -y --disablerepo=ol7_latest  --enablerepo=ol${majorVersion}_u${minorVersion}_base
 yum upgrade -y --disablerepo=ol7_latest  --enablerepo=ol${majorVersion}_u${minorVersion}_base
 
-echo "===================================================================================="
-echo "#################                OS update completed	          ####################"
-echo "=====================================================================================" 
+echo "================================================================="
+echo "##########           Update software completed         ##########"
+echo "=================================================================" 
 
 
