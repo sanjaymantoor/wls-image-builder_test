@@ -12,6 +12,16 @@ function usage()
   echo_stderr "./setupWLS.sh <<< <parameters>"
 }
 
+#Check the execution success
+function checkSuccess()
+{
+	retValue=$1
+	message=$2
+	if [[ $retValue != 0 ]]; then
+		echo_stderr "${message}"
+		exit $retValue
+	fi
+}
 
 #Function to cleanup all temporary files
 function cleanup()
@@ -57,10 +67,7 @@ function setupWDT()
 
     cd $DOMAIN_PATH
     wget -q $WEBLOGIC_DEPLOY_TOOL
-    if [[ $? != 0 ]]; then
-       echo "Error : Downloading weblogic-deploy-tool failed"
-       exit 1
-    fi
+    checkSuccess $? "Error : Downloading weblogic-deploy-tool failed"
     sudo unzip -o weblogic-deploy.zip -d $DOMAIN_PATH
     sudo chown -R $username:$groupname $DOMAIN_PATH
     rm $DOMAIN_PATH/weblogic-deploy.zip
@@ -80,12 +87,15 @@ function downloadUsingWget()
      if [ $? != 0 ];
      then
         echo "$filename Driver Download failed on $downloadURL. Trying again..."
-	rm -f $filename
+     rm -f $filename
      else 
         echo "$filename Driver Downloaded successfully"
         break
      fi
-   done 
+   done
+   echo "Verifying the driver download"
+   ls  $filename
+   checkSuccess $? "Error : Downloading driver ${filename} failed"
 }
 
 function copyJDBCDriversToWeblogicClassPath()
@@ -98,24 +108,10 @@ function copyJDBCDriversToWeblogicClassPath()
      chown $username:$groupname ${WL_HOME}/server/lib/${MSSQL_JDBC_DRIVER}
 
      echo "Copied JDBC Drivers to Weblogic CLASSPATH"
-}
-
-function testJDBCDrivers()
-{
-
-# Temporarily added for test
-ls /u01/app/wls/install/oracle/middleware/oracle_home/wlserver/server/lib/postgresql-42.2.8.jar
-if [[ $? != 0 ]]; then
-   echo Downloading postgresql-42.2.8.jar failed
-   exit 1
-fi
-
-ls /u01/app/wls/install/oracle/middleware/oracle_home/wlserver/server/lib/mssql-jdbc-7.4.1.jre8.jar
-if [[ $? != 0 ]]; then
-   echo Downloading mssql-jdbc-7.4.1.jre8.jar failed
-   exit 1
-fi
-
+     ls ${WL_HOME}/server/lib/${POSTGRESQL_JDBC_DRIVER}
+     checkSuccess $? "Error : Copying ${POSTGRESQL_JDBC_DRIVER} to ${WL_HOME}/server/lib failed"  
+     ls ${WL_HOME}/server/lib/${MSSQL_JDBC_DRIVER}
+     checkSuccess $? "Error : Copying ${MSSQL_JDBC_DRIVER} to ${WL_HOME}/server/lib failed"   
 }
 
 function modifyWLSClasspath()
@@ -448,8 +444,6 @@ downloadJDBCDrivers
 copyJDBCDriversToWeblogicClassPath
 
 modifyWLSClasspath
-
-testJDBCDrivers
 
 cleanup
 

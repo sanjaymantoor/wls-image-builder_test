@@ -13,6 +13,17 @@ function usage()
   echo_stderr "./wlsPatchUpdate.sh <<< <parameters>"
 }
 
+#Check the execution success
+function checkSuccess()
+{
+	retValue=$1
+	message=$2
+	if [[ $retValue != 0 ]]; then
+		echo_stderr "${message}"
+		exit $retValue
+	fi
+}
+
 #Function to cleanup all temporary files
 function cleanup()
 {
@@ -39,6 +50,9 @@ function downloadUsingWget()
         break
      fi
    done
+   echo "Verifying the ${filename} patch download"
+   ls  $filename
+   checkSuccess $? "Error : Downloading ${filename} patch failed"
    
 }
 
@@ -56,16 +70,18 @@ function updatePatch()
 	ls -lt ${patchListFile}
 	if [[ "${patchListFile}" == *"linux64_patchlist.txt"* ]]; 
 	then
-		echo "Applying Stack Patch Bundle"
+		echo "Applying WebLogic Stack Patch Bundle"
 		command="${oracleHome}/OPatch/opatch napply -silent -oh ${oracleHome}  -phBaseFile linux64_patchlist.txt"
 		echo $command
 		runuser -l oracle -c "cd ${wlsPatchWork}/*/binary_patches ; ${command}"
+		checkSuccess $? "Error : WebLogic patch update failed"
 	else
-		echo "Applying regular wls patch"
+		echo "Applying regular WebLogic patch"
 		cd *
 		command="${oracleHome}/OPatch/opatch apply -silent"
 		echo $command
 		runuser -l oracle -c "${command}"
+		checkSuccess $? "Error : WebLogic patch update failed"
 	fi
 	echo "WLS patch details after applying patch"
 	runuser -l oracle -c "$oracleHome/OPatch/opatch lspatches"
@@ -85,16 +101,16 @@ username="oracle"
 
 if [ $downloadURL != "none" ];
 then
-echo "================================================================="
-echo "##########          Starting WLS patch update          ##########"
-echo "================================================================="
+	echo "================================================================="
+	echo "##########          Starting WLS patch update          ##########"
+	echo "================================================================="
 
 	downloadUsingWget
 	updatePatch
 	cleanup
 	
-echo "================================================================="
-echo "##########          WLS patch update completed         ##########"
-echo "================================================================="
+	echo "================================================================="
+	echo "##########          WLS patch update completed         ##########"
+	echo "================================================================="
 
 fi

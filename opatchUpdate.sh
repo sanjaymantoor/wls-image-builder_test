@@ -13,6 +13,17 @@ function usage()
   echo_stderr "./opatchUpdate.sh <<< <parameters>"
 }
 
+#Check the execution success
+function checkSuccess()
+{
+	retValue=$1
+	message=$2
+	if [[ $retValue != 0 ]]; then
+		echo_stderr "${message}"
+		exit $retValue
+	fi
+}
+
 #Function to cleanup all temporary files
 function cleanup()
 {
@@ -37,6 +48,10 @@ function downloadUsingWget()
         break
      fi
    done
+   echo "Verifying the ${filename} patch download"
+   ls  $filename
+   checkSuccess $? "Error : Downloading ${filename} patch failed"
+   
 }
 
 function updatePatch()
@@ -51,6 +66,7 @@ function updatePatch()
 	sudo chown -R $username:$groupname ${opatchWork}
 	echo "Executing optach update command:"${command}
 	runuser -l oracle -c "cd $oracleHome/wlserver/server/bin ; . ./setWLSEnv.sh ;cd ${opatchWork}; ${command}"
+	checkSuccess $? "Error : Updating opatch failed"
 	echo "Opatch version after updating patch"
 	runuser -l oracle -c "$oracleHome/OPatch/opatch version"
 }
@@ -68,15 +84,17 @@ username="oracle"
 
 if [ $downloadURL != "none" ];
 then
-echo "================================================================="
-echo "##########         Starting OPatch patch update        ##########"
-echo "================================================================="
+	echo "================================================================="
+	echo "##########         Starting OPatch patch update        ##########"
+	echo "================================================================="
+	
 	downloadUsingWget
 	updatePatch
 	cleanup
-echo "================================================================="
-echo "##########         OPatch patch update completed        ##########"
-echo "================================================================="
+	
+	echo "================================================================="
+	echo "##########         OPatch patch update completed        ##########"
+	echo "================================================================="
 
 fi	
   
