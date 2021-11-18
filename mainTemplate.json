@@ -155,7 +155,7 @@
 					{
 						"type": "Shell",
 						"name": "updateWLSPatch",
-						"validExitCodes": [0,1,2,65,66,67,71,73,74,75,,76,77,78,79],
+						"validExitCodes": "[0-80]",
 						"inline": [
 									"sudo reboot"
 						]	
