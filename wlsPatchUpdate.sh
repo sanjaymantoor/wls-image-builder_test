@@ -67,7 +67,6 @@ function updatePatch()
 	sudo chmod -R 755 ${wlsPatchWork}
 	#Check whether it is bundle patch
 	patchListFile=`find . -name linux64_patchlist.txt`
-	ls -lt ${patchListFile}
 	if [[ "${patchListFile}" == *"linux64_patchlist.txt"* ]]; 
 	then
 		echo "Applying WebLogic Stack Patch Bundle"
@@ -77,10 +76,9 @@ function updatePatch()
 		checkSuccess $? "Error : WebLogic patch update failed"
 	else
 		echo "Applying regular WebLogic patch"
-		cd *
 		command="${oracleHome}/OPatch/opatch apply -silent"
 		echo $command
-		runuser -l oracle -c "${command}"
+		runuser -l oracle -c "cd ${wlsPatchWork}/* ; ${command}"
 		checkSuccess $? "Error : WebLogic patch update failed"
 	fi
 	echo "WLS patch details after applying patch"
