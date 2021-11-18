@@ -50,6 +50,7 @@ function updatePatch()
 	filename=${downloadURL##*/}
 	unzip $filename
 	sudo chown -R $username:$groupname ${wlsPatchWork}
+	sudo chmod -R 755 ${wlsPatchWork}
 	#Check whether it is bundle patch
 	patchListFile=`find . -name linux64_patchlist.txt`
 	ls -lt ${patchListFile}
@@ -57,7 +58,7 @@ function updatePatch()
 	then
 		echo "Applying Stack Patch Bundle"
 		command="${oracleHome}/OPatch/opatch napply silent -oh ${oracleHome}  -phBaseFile ${patchListFile}"
-		runuser -l oracle -c "cd ${wlsPatchWork}/*/binary_patches ; export PATH=${oracleHome}/OPatch:$PATH ; opatch napply silent -oh ${oracleHome} -phBaseFile linux64_patchlist.txt"
+		runuser -l oracle -c "cd ${wlsPatchWork}/*/binary_patches ; pwd ; ls -lt ; export PATH=${oracleHome}/OPatch:$PATH ; opatch napply silent -oh ${oracleHome} -phBaseFile linux64_patchlist.txt"
 	else
 		echo "Applying regular wls patch"
 		cd *
