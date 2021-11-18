@@ -58,11 +58,12 @@ function updatePatch()
 	then
 		echo "Applying Stack Patch Bundle"
 		command="${oracleHome}/OPatch/opatch napply -silent -oh ${oracleHome}  -phBaseFile linux64_patchlist.txt"
+		echo $command
 		runuser -l oracle -c "cd ${wlsPatchWork}/*/binary_patches ; ${command}"
 	else
 		echo "Applying regular wls patch"
 		cd *
-		command="${oracleHome}/OPatch/opatch apply"
+		command="${oracleHome}/OPatch/opatch apply -silent"
 		echo $command
 		runuser -l oracle -c "${command}"
 	fi
@@ -86,5 +87,5 @@ if [ $downloadURL != "none" ];
 then
 	downloadUsingWget
 	updatePatch
-#	cleanup
+	cleanup
 fi
