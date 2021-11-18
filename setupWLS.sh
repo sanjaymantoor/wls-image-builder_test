@@ -465,7 +465,7 @@ osVersion=`cat /etc/os-release | grep VERSION_ID |cut -f2 -d"="| sed 's/\"//g'`
 majorVersion=`echo $osVersion |cut -f1 -d"."`
 minorVersion=`echo $osVersion |cut -f2 -d"."`
 echo yum upgrade -y --disablerepo=ol7_latest  --enablerepo=ol${majorVersion}_u${minorVersion}_base
-#yum upgrade -y --disablerepo=ol7_latest  --enablerepo=ol${majorVersion}_u${minorVersion}_base
+yum upgrade -y --disablerepo=ol7_latest  --enablerepo=ol${majorVersion}_u${minorVersion}_base
 
 echo "===================================================================================="
 echo "#################                OS update completed	          ####################"
