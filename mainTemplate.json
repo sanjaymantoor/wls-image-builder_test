@@ -111,7 +111,7 @@
 				}
 			},
 			"properties": {
-				"buildTimeoutInMinutes": 30,				
+				"buildTimeoutInMinutes": 30,
 				"source": {
 					"type": "PlatformImage",
 					"publisher": "Oracle",
@@ -123,48 +123,47 @@
 					{
 						"type": "Shell",
 						"name": "setupWLS",
-						"inline": [	
-									"mkdir -p /u01/scripts",
-									"cd /u01/scripts",
-									"curl -# -O https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/setupWLS.sh",
-									"[variables('name_scriptCommand')]",
-									"rm -rf /u01/scripts"
+						"inline": [
+							"mkdir -p /u01/scripts",
+							"cd /u01/scripts",
+							"curl -# -O https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/setupWLS.sh",
+							"[variables('name_scriptCommand')]",
+							"rm -rf /u01/scripts"
 						]
 					},
 					{
 						"type": "Shell",
 						"name": "updateOpatch",
-						"inline": [	
-									"mkdir -p /u01/scripts",
-									"cd /u01/scripts",
-									"curl -# -O https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/opatchUpdate.sh",
-									"[variables('name_opatchUpdateCommand')]",
-									"rm -rf /u01/scripts"									
-						]	
+						"inline": [
+							"mkdir -p /u01/scripts",
+							"cd /u01/scripts",
+							"curl -# -O https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/opatchUpdate.sh",
+							"[variables('name_opatchUpdateCommand')]",
+							"rm -rf /u01/scripts"
+						]
 					},
 					{
 						"type": "Shell",
 						"name": "updateWLSPatch",
-						"inline": [	
-									"mkdir -p /u01/scripts",				
-									"cd /u01/scripts",
-									"curl -# -O https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/wlsPatchUpdate.sh",
-									"[variables('name_wlspatchUpdateCommand')]",
-									"rm -rf /u01/scripts"									
-						]	
+						"inline": [
+							"mkdir -p /u01/scripts",
+							"cd /u01/scripts",
+							"curl -# -O https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/wlsPatchUpdate.sh",
+							"[variables('name_wlspatchUpdateCommand')]",
+							"rm -rf /u01/scripts"
+						]
 					},
 					{
 						"type": "Shell",
 						"name": "updateWLSPatch",
 						"validExitCodes": "0-255",
 						"inline": [
-									"shutdown -r +1 &",
-									"sleep 10m",
-									"echo REBOOTED"
-						]	
+							"shutdown -r +1 &",
+							"sleep 10m",
+							"echo REBOOTED"
+						]
 					}
 				],
-
 				"distribute": [
 					{
 						"type": "VHD",
