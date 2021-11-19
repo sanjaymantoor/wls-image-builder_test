@@ -160,7 +160,7 @@
 						"expect_disconnect": true,
 						"start_retry_timeout": "10m",
 						"inline": [
-							"shutdown -r +1 &"
+							"sudo reboot"
 						]
 					},
 					{
