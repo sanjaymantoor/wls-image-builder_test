@@ -110,9 +110,9 @@
 		"name_setupWLSCommand": "[concat('sh setupWLS.sh',' <<< \"',parameters('acceptOTNLicenseAgreement'),' ',parameters('otnAccountUsername'),' ',parameters('otnAccountPassword'),' ',parameters('wlsShiphomeURL'),' ',parameters('jdkURL'),' ',parameters('wlsVersion'),' ',parameters('jdkVersion'),'\"')]",
 		"name_opatchUpdateCommand": "[concat('sh opatchUpdate.sh',' <<< \"',parameters('opatchURL'),'\"')]",
 		"name_wlspatchUpdateCommand": "[concat('sh wlsPatchUpdate.sh',' <<< \"',parameters('wlsPatchURL'),'\"')]",
-		"download_wlsScript": "[concat('curl  -# -O ',parameters('_artifactsLocationTemplate'), 'setupWLS.sh'))]",
-		"download_opatchScript": "[concat('curl  -# -O ',parameters('_artifactsLocationTemplate'), 'opatchUpdate.sh'))]",
-		"download_wlsPatchScript": "[concat('curl  -# -O ',parameters('_artifactsLocationTemplate'), 'wlsPatchUpdate.sh'))]"
+		"download_wlsScript": "[concat('curl  -# -O ',parameters('_artifactsLocationTemplate'), 'setupWLS.sh')]",
+		"download_opatchScript": "[concat('curl  -# -O ',parameters('_artifactsLocationTemplate'), 'opatchUpdate.sh')]",
+		"download_wlsPatchScript": "[concat('curl  -# -O ',parameters('_artifactsLocationTemplate'), 'wlsPatchUpdate.sh')]"
 	},
 	"resources": [
 		{
