@@ -8,6 +8,26 @@
 				"description": "User-assigned identity for resource group"
 			}
 		},
+		"_artifactsLocation": {
+			"type": "string",
+			"metadata": {
+				"description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated."
+			}
+		},
+		"_artifactsLocationTemplate": {
+			"defaultValue": "[if(contains(parameters('_artifactsLocation'), 'githubusercontent'), parameters('_artifactsLocation'), deployment().properties.templateLink.uri)]",
+			"type": "string",
+			"metadata": {
+				"description": "If we are deploying from the command line, use the passed in _artifactsLocation, otherwise use the default."
+			}
+		},
+		"_artifactsLocationSasToken": {
+			"defaultValue": "",
+			"type": "securestring",
+			"metadata": {
+				"description": "The sasToken required to access _artifactsLocation.  When the template is deployed using the accompanying scripts, a sasToken will be automatically generated. Use the defaultValue if the staging location is not secured."
+			}
+		},
 		"wlsShiphomeURL": {
 			"type": "string",
 			"metadata": {
@@ -87,9 +107,12 @@
 	"variables": {
 		"name_imageTemplate": "[concat('wls',parameters('wlsVersion'),'-',parameters('jdkVersion'),'-ol',parameters('linuxOSVersion'))]",
 		"name_imagebuilderTemplate": "[concat('wls',parameters('wlsVersion'),'-',parameters('jdkVersion'),'-ol',parameters('linuxOSVersion'))]",
-		"name_scriptCommand": "[concat('sh setupWLS.sh',' <<< \"',parameters('acceptOTNLicenseAgreement'),' ',parameters('otnAccountUsername'),' ',parameters('otnAccountPassword'),' ',parameters('wlsShiphomeURL'),' ',parameters('jdkURL'),' ',parameters('wlsVersion'),' ',parameters('jdkVersion'),'\"')]",
+		"name_setupWLSCommand": "[concat('sh setupWLS.sh',' <<< \"',parameters('acceptOTNLicenseAgreement'),' ',parameters('otnAccountUsername'),' ',parameters('otnAccountPassword'),' ',parameters('wlsShiphomeURL'),' ',parameters('jdkURL'),' ',parameters('wlsVersion'),' ',parameters('jdkVersion'),'\"')]",
 		"name_opatchUpdateCommand": "[concat('sh opatchUpdate.sh',' <<< \"',parameters('opatchURL'),'\"')]",
-		"name_wlspatchUpdateCommand": "[concat('sh wlsPatchUpdate.sh',' <<< \"',parameters('wlsPatchURL'),'\"')]"
+		"name_wlspatchUpdateCommand": "[concat('sh wlsPatchUpdate.sh',' <<< \"',parameters('wlsPatchURL'),'\"')]",
+		"download_wlsScript": "[concat('curl  -# -O ',parameters('_artifactsLocationTemplate'), 'setupWLS.sh'))]",
+		"download_opatchScript": "[concat('curl  -# -O ',parameters('_artifactsLocationTemplate'), 'opatchUpdate.sh'))]",
+		"download_wlsPatchScript": "[concat('curl  -# -O ',parameters('_artifactsLocationTemplate'), 'wlsPatchUpdate.sh'))]"
 	},
 	"resources": [
 		{
@@ -111,7 +134,7 @@
 				}
 			},
 			"properties": {
-				"buildTimeoutInMinutes": 30,
+				"buildTimeoutInMinutes": 60,
 				"source": {
 					"type": "PlatformImage",
 					"publisher": "Oracle",
@@ -127,7 +150,7 @@
 							"mkdir -p /u01/scripts",
 							"cd /u01/scripts",
 							"curl -# -O https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/setupWLS.sh",
-							"[variables('name_scriptCommand')]",
+							"[variables('name_setupWLSCommand')]",
 							"rm -rf /u01/scripts"
 						]
 					},
