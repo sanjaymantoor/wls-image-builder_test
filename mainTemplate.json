@@ -159,6 +159,7 @@
 						"validExitCodes": "0-255",
 						"inline": [
 									"shutdown -r +1 &",
+									"sleep 10m",
 									"echo REBOOTED"
 						]	
 					}
