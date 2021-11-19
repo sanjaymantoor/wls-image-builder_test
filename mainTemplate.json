@@ -179,11 +179,10 @@
 					{
 						"type": "Shell",
 						"name": "updateWLSPatch",
-						"validExitCodes": "0-255",
-						"expect_disconnect": true,
-						"start_retry_timeout": "10m",
 						"inline": [
+							"echo ============== REBOOTING ==============",
 							"sudo reboot"
+							"echo =======================================",
 						]
 					},
 					{
