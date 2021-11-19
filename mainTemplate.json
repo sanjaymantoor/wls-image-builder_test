@@ -157,9 +157,19 @@
 						"type": "Shell",
 						"name": "updateWLSPatch",
 						"validExitCodes": "0-255",
+						"expect_disconnect": true,
+						"start_retry_timeout": "10m",
 						"inline": [
-							"shutdown -r +1 &",
-							"sleep 10m",
+							"shutdown -r +1 &"
+						]
+					},
+					{
+						"type": "Shell",
+						"name": "AfterBoot",
+						"validExitCodes": "0-255",
+						"expect_disconnect": true,
+						"start_retry_timeout": "10m",
+						"inline": [
 							"echo REBOOTED"
 						]
 					}
