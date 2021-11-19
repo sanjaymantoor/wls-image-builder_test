@@ -178,7 +178,7 @@
 					},
 					{
 						"type": "Shell",
-						"name": "updateWLSPatch",
+						"name": "Reboot",
 						"inline": [
 							"echo ============== REBOOTING ==============",
 							"sudo reboot",
