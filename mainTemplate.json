@@ -111,6 +111,7 @@
 				}
 			},
 			"properties": {
+				"buildTimeoutInMinutes": 30,				
 				"source": {
 					"type": "PlatformImage",
 					"publisher": "Oracle",
