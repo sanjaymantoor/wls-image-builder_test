@@ -188,7 +188,6 @@
 					{
 						"type": "Shell",
 						"name": "AfterBoot",
-						"validExitCodes": "0-255",
 						"expect_disconnect": true,
 						"start_retry_timeout": "10m",
 						"inline": [
