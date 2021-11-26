@@ -272,12 +272,6 @@
 				"hardwareProfile": {
 					"vmSize": "[variables('const_vmSize')]"
 				},
-				"osProfile": {
-      				"adminPassword": "[parameters('adminPasswordOrKey')]",
-      				"adminUsername": "[parameters('adminUsername')]",
-            		"computerName":  "[parameters('vmName')]",
-      				"linuxConfiguration": "[if(equals(parameters('authenticationType'), 'password'), json('null'), variables('const_linuxConfiguration'))]"
-      			},
 				"storageProfile": {
 					"osDisk": {
 						"createOption": "attach",
