@@ -125,7 +125,7 @@
 	"resources": [
 		{
 			"type": "Microsoft.Network/networkSecurityGroups",
-			"apiVersion": "2021-08-01",
+			"apiVersion": "2021-06-01",
 			"name": "[variables('name_networkSecurityGroup')]",
 			"location": "[parameters('location')]",
 			"properties": {
