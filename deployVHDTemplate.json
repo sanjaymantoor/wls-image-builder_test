@@ -125,7 +125,7 @@
 	"resources": [
 		{
 			"type": "Microsoft.Network/networkSecurityGroups",
-			"apiVersion": "2021-06-01",
+			"apiVersion": "2021-08-01",
 			"name": "[variables('name_networkSecurityGroup')]",
 			"location": "[parameters('location')]",
 			"properties": {
@@ -148,7 +148,7 @@
 		},
 		{
 			"type": "Microsoft.Storage/storageAccounts",
-			"apiVersion": "2021-06-01",
+			"apiVersion": "2021-08-01",
 			"name": "[variables('name_storageAccount')]",
 			"location": "[parameters('location')]",
 			"sku": {
@@ -159,7 +159,7 @@
 			}
 		},
 		{
-			"apiVersion": "2021-04-01",
+			"apiVersion": "2021-08-01",
 			"type": "Microsoft.Compute/disks",
 			"name": "[variables('name_diskName')]",
 			"location": "[parameters('location')]",
@@ -185,7 +185,7 @@
 		},
 		{
 			"type": "Microsoft.Network/publicIPAddresses",
-			"apiVersion": "2021-03-01",
+			"apiVersion": "2021-08-01",
 			"name": "[variables('name_publicIPAddress')]",
 			"location": "[parameters('location')]",
 			"properties": {
@@ -197,7 +197,7 @@
 		},
 		{
 			"type": "Microsoft.Network/virtualNetworks",
-			"apiVersion": "2021-03-01",
+			"apiVersion": "2021-08-01",
 			"name": "[variables('name_virtualNetwork')]",
 			"location": "[parameters('location')]",
 			"dependsOn": [
@@ -223,7 +223,7 @@
 			}
 		},
 		{
-			"apiVersion": "2021-03-01",
+			"apiVersion": "2021-08-01",
 			"type": "Microsoft.Network/networkInterfaces",
 			"name": "[variables('name_nic')]",
 			"location": "[parameters('location')]",
@@ -253,7 +253,7 @@
 		},
 		{
 			"type": "Microsoft.Compute/virtualMachines",
-			"apiVersion": "2021-03-01",
+			"apiVersion": "2021-08-01",
 			"name": "[parameters('vmName')]",
 			"location": "[parameters('location')]",
 			"dependsOn": [
