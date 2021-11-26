@@ -179,7 +179,7 @@
 				"creationData": {
 					"createOption": "[parameters('createOption')]",
 					"sourceUri": "[parameters('sourceUri')]",
-					"storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts',parameters('storageAccountName'))]"
+					"storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts/',parameters('storageAccountName'))]"
 				},
 				"diskSizeGB": "[parameters('diskSizeGb')]",
 				"hyperVGeneration": "[parameters('hyperVGeneration')]",
@@ -272,6 +272,12 @@
 				"hardwareProfile": {
 					"vmSize": "[variables('const_vmSize')]"
 				},
+				"osProfile": {
+      				"adminPassword": "[parameters('adminPasswordOrKey')]",
+      				"adminUsername": "[parameters('adminUsername')]",
+            		"computerName":  "[parameters('vmName')]",
+      				"linuxConfiguration": "[if(equals(parameters('authenticationType'), 'password'), json('null'), variables('const_linuxConfiguration'))]"
+      			},
 				"storageProfile": {
 					"osDisk": {
 						"createOption": "attach",
