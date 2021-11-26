@@ -178,7 +178,7 @@
 				"creationData": {
 					"createOption": "[parameters('createOption')]",
 					"sourceUri": "[parameters('sourceUri')]",
-					"storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts',variables('name_storageAccount'))]"
+					"storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts',variables('storageAccountName'))]"
 				},
 				"diskSizeGB": "[parameters('diskSizeGb')]",
 				"hyperVGeneration": "[parameters('hyperVGeneration')]",
