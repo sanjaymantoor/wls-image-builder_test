@@ -171,7 +171,8 @@
 			"name": "[variables('name_diskName')]",
 			"location": "[parameters('location')]",
 			"dependsOn": [
-				"[resourceId('Microsoft.Storage/storageAccounts/', variables('name_storageAccount'))]"
+				"[resourceId('Microsoft.Storage/storageAccounts/', variables('name_storageAccount'))]",
+				"[resourceId('Microsoft.Network/virtualNetworks/', variables('name_virtualNetwork'))]"
 			],
 			"properties": {
 				"osType": "[variables('name_osType')]",
