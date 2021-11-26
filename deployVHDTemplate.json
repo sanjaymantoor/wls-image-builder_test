@@ -146,7 +146,7 @@
 				"creationData": {
 					"createOption": "[parameters('createOption')]",
 					"sourceUri": "[parameters('sourceUri')]",
-					"storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts',variables('name_storageAccount')]"
+					"storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts',variables('name_storageAccount'))]"
 				},
 				"diskSizeGB": "[parameters('diskSizeGb')]",
 				"hyperVGeneration": "[parameters('hyperVGeneration')]",
@@ -250,7 +250,7 @@
 						"createOption": "attach",
 						"osType": "Linux",
 						"managedDisk": {
-							"id": "[resourceId('Microsoft.Compute/disks',variables('name_diskName')]"
+							"id": "[resourceId('Microsoft.Compute/disks',variables('name_diskName'))]"
 						}
 					}
 				},
