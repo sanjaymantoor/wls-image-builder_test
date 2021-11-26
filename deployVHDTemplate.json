@@ -94,6 +94,8 @@
 	},
 	"variables": {
 		"name_storageAccount": "[concat(take(replace(parameters('guidValue'),'-',''),6),'olvm')]",
+		"portsToExpose": "22,80,443,7001-9000",
+		"const_requiredPortrange": ",65200-65535,5556",
 		"const_vmSize": "[parameters('vmSizeSelect')]",
 		"const_storageAccountType": "Standard_LRS",
 		"name_diskName": "[concat('wlsdisk-',parameters('guidValue'))]",
@@ -121,6 +123,29 @@
 		}
 	},
 	"resources": [
+		{
+			"type": "Microsoft.Network/networkSecurityGroups",
+			"apiVersion": "2021-06-01",
+			"name": "[variables('name_networkSecurityGroup')]",
+			"location": "[parameters('location')]",
+			"properties": {
+				"securityRules": [
+					{
+						"name": "CustomPorts",
+						"properties": {
+							"protocol": "TCP",
+							"sourcePortRange": "*",
+							"sourceAddressPrefix": "*",
+							"destinationAddressPrefix": "*",
+							"access": "Allow",
+							"priority": 320,
+							"direction": "Inbound",
+							"destinationPortRanges": "[split(concat(parameters('portsToExpose'),variables('const_requiredPortrange')), ',')]"
+						}
+					}
+				]
+			}
+		},
 		{
 			"type": "Microsoft.Storage/storageAccounts",
 			"apiVersion": "2021-06-01",
