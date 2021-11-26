@@ -295,6 +295,26 @@
 					}
 				}
 			}
+		},
+		{
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "apiVersion": "2021-07-01",
+            "name": "[concat(parameters('vmName'),'/enablevmaccess'))]",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines',parameters('vmName'))]"
+             ],
+             "properties": {
+             	"autoUpgradeMinorVersion": true,
+             	"publisher": "Microsoft.OSTCExtensions",
+             	"type": "VMAccessForLinux",
+             	"typeHandlerVersion": "1.4",
+             	"settings": {},
+             	"protectedSettings": {
+             		"username": "[parameters('adminUsername')]",
+             		"password": "[parameters('adminPasswordOrKey')]"
+             	}
+             }
 		}
 	]
 }
