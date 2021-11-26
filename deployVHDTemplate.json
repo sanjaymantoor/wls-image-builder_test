@@ -1,0 +1,271 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"diskName": {
+			"type": "string",
+			"defaultValue": "wlsdisk"
+		},
+		"location": {
+			"type": "string",
+			"defaultValue": "[resourceGroup().location]",
+			"metadata": {
+				"description": "Location for all resources."
+			}
+		},
+		"sku": {
+			"type": "string",
+			"defaultValue": "Premium_LRS",
+			"allowedValues": [
+				"Standard_LRS",
+				"Premium_LRS",
+				"StandardSSD_LRS",
+				"UltraSSD_LRS",
+				"Premium_ZRS",
+				"StandardSSD_ZRS"
+			],
+			"metadata": {
+				"description": "The disks sku name."
+			}
+		},
+		"diskSizeGb": {
+			"type": "int",
+			"defaultValue": 32
+		},
+		"sourceUri": {
+			"type": "string",
+			"metadata": {
+				"description": "Blob URI for VHD file."
+			}
+		},
+		"createOption": {
+			"type": "string",
+			"defaultValue": "import"
+		},
+		"hyperVGeneration": {
+			"type": "string",
+			"defaultValue": "V1"
+		},
+		"networkAccessPolicy": {
+			"type": "string",
+			"defaultValue": "AllowAll"
+		},
+		"guidValue": {
+			"type": "string",
+			"defaultValue": "[newGuid()]"
+		},
+		"vmName": {
+			"type": "string",
+			"defaultValue": "WeblogicServerVM",
+			"metadata": {
+				"description": "VM name."
+			}
+		},
+		"vmSizeSelect": {
+			"type": "string",
+			"defaultValue": "Standard_A3",
+			"metadata": {
+				"description": "Select appropriate VM Size as per requirement"
+			}
+		},
+		"adminPasswordOrKey": {
+			"type": "securestring",
+			"metadata": {
+				"description": "SSH Key or password for the Virtual Machine. SSH key is recommended."
+			}
+		},
+		"adminUsername": {
+			"type": "string",
+			"metadata": {
+				"description": "User name for the Virtual Machine."
+			}
+		},
+		"authenticationType": {
+			"type": "string",
+			"defaultValue": "password",
+			"allowedValues": [
+				"sshPublicKey",
+				"password"
+			],
+			"metadata": {
+				"description": "Type of authentication to use on the Virtual Machine. SSH key is recommended."
+			}
+		},
+		"variables": {
+			"name_storageAccount": "[concat(take(replace(parameters('guidValue'),'-',''),6),'olvm')]",
+			"const_vmSize": "[parameters('vmSizeSelect')]",
+			"const_storageAccountType": "Standard_LRS",
+			"name_diskName": "[concat('wlsdisk-',parameters('guidValue'))]",
+			"name_osType": "Linux",
+			"name_nic": "olvm_NIC",
+			"name_publicIPAddress": "olvm_PublicIP",
+			"const_publicIPAddressType": "Dynamic",
+			"name_vmLabelPrefix": "wlsvm",
+			"name_virtualNetwork": "olvm_VNET",
+			"const_addressPrefix": "10.0.0.0/16",
+			"name_networkSecurityGroup": "[concat(variables('name_vmLabelPrefix'), '-nsg')]",
+			"ref_networkSecurityGroup": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('name_networkSecurityGroup'))]",
+			"name_subnet": "Subnet",
+			"ref_subnet": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('name_virtualNetwork'), variables('name_subnet'))]",
+			"const_linuxConfiguration": {
+				"disablePasswordAuthentication": true,
+				"ssh": {
+					"publicKeys": [
+						{
+							"path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
+							"keyData": "[parameters('adminPasswordOrKey')]"
+						}
+					]
+				}
+			}
+		},
+		"resources": [
+			{
+				"type": "Microsoft.Storage/storageAccounts",
+				"apiVersion": "2021-06-01",
+				"name": "[variables('name_storageAccount')]",
+				"location": "[parameters('location')]",
+				"sku": {
+					"name": "[variables('const_storageAccountType')]"
+				},
+				"kind": "Storage",
+				"properties": {
+				}
+			},
+			{
+				"apiVersion": "2021-04-01",
+				"type": "Microsoft.Compute/disks",
+				"name": "[variables('name_diskName')]",
+				"location": "[parameters('location')]",
+				"dependsOn": "[variables('name_storageAccount')]",
+				"properties": {
+					"osType": "[variables('name_osType')]",
+					"creationData": {
+						"createOption": "[parameters('createOption')]",
+						"sourceUri": "[parameters('sourceUri')]",
+						"storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts',variables('name_storageAccount')]"
+					},
+					"diskSizeGB": "[parameters('diskSizeGb')]",
+					"hyperVGeneration": "[parameters('hyperVGeneration')]",
+					"networkAccessPolicy": "[parameters('networkAccessPolicy')]"
+				},
+				"sku": {
+					"name": "[parameters('sku')]"
+				},
+				"tags": {
+				}
+			},
+			{
+				"type": "Microsoft.Network/publicIPAddresses",
+				"apiVersion": "2021-03-01",
+				"name": "[variables('name_publicIPAddress')]",
+				"location": "[parameters('location')]",
+				"properties": {
+					"publicIPAllocationMethod": "[variables('const_publicIPAddressType')]",
+					"dnsSettings": {
+						"domainNameLabel": "[concat(toLower(variables('name_vmLabelPrefix')),'-',take(replace(parameters('guidValue'),'-',''),10))]"
+					}
+				}
+			},
+			{
+				"type": "Microsoft.Network/virtualNetworks",
+				"apiVersion": "2021-03-01",
+				"name": "[variables('name_virtualNetwork')]",
+				"location": "[parameters('location')]",
+				"dependsOn": [
+					"[variables('ref_networkSecurityGroup')]"
+				],
+				"properties": {
+					"addressSpace": {
+						"addressPrefixes": [
+							"[variables('const_addressPrefix')]"
+						]
+					},
+					"subnets": [
+						{
+							"name": "[variables('name_subnet')]",
+							"properties": {
+								"addressPrefix": "[variables('const_subnetPrefix')]",
+								"networkSecurityGroup": {
+									"id": "[variables('ref_networkSecurityGroup')]"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"apiVersion": "2021-03-01",
+				"type": "Microsoft.Network/networkInterfaces",
+				"name": "[variables('name_nic')]",
+				"location": "[parameters('location')]",
+				"dependsOn": [
+					"[resourceId('Microsoft.Network/virtualNetworks/', variables('name_virtualNetwork'))]",
+					"[resourceId('Microsoft.Network/publicIPAddresses/', variables('name_publicIPAddress'))]"
+				],
+				"properties": {
+					"ipConfigurations": [
+						{
+							"name": "ipconfig1",
+							"properties": {
+								"privateIPAllocationMethod": "Dynamic",
+								"publicIPAddress": {
+									"id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('name_publicIPAddress'))]"
+								},
+								"subnet": {
+									"id": "[variables('ref_subnet')]"
+								}
+							}
+						}
+					],
+					"dnsSettings": {
+						"internalDnsNameLabel": "[parameters('vmName')]"
+					}
+				}
+			},
+			{
+				"type": "Microsoft.Compute/virtualMachines",
+				"apiVersion": "2021-03-01",
+				"name": "[parameters('vmName')]",
+				"location": "[parameters('location')]",
+				"dependsOn": [
+					"[resourceId('Microsoft.Storage/storageAccounts/', variables('name_storageAccount'))]",
+					"[resourceId('Microsoft.Network/networkInterfaces/', variables('name_nic'))]"
+				],
+				"properties": {
+					"hardwareProfile": {
+						"vmSize": "[variables('const_vmSize')]"
+					},
+					"osProfile": {
+						"computerName": "[parameters('vmName')]",
+						"adminUsername": "[parameters('adminUsername')]",
+						"adminPassword": "[parameters('adminPasswordOrKey')]",
+						"linuxConfiguration": "[if(equals(parameters('authenticationType'), 'password'), json('null'), variables('const_linuxConfiguration'))]"
+					},
+					"storageProfile": {
+						"osDisk": {
+							"createOption": "attach",
+							"osType": "Linux",
+							"managedDisk": {
+								"id": "[resourceId('Microsoft.Compute/disks',variables('name_diskName')]"
+							}
+						}
+					},
+					"networkProfile": {
+						"networkInterfaces": [
+							{
+								"id": "[resourceId('Microsoft.Network/networkInterfaces',variables('name_nic'))]"
+							}
+						]
+					},
+					"diagnosticsProfile": {
+						"bootDiagnostics": {
+							"enabled": true,
+							"storageUri": "[reference(resourceId('Microsoft.Storage/storageAccounts/', variables('name_storageAccount')), '2021-03-01').primaryEndpoints.blob]"
+						}
+					}
+				}
+			}
+		]
+	}
+}
