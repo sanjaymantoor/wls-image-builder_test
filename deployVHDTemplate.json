@@ -138,7 +138,9 @@
 			"type": "Microsoft.Compute/disks",
 			"name": "[variables('name_diskName')]",
 			"location": "[parameters('location')]",
-			"dependsOn": "[variables('name_storageAccount')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts/', variables('name_storageAccount'))]"
+			],
 			"properties": {
 				"osType": "[variables('name_osType')]",
 				"creationData": {
