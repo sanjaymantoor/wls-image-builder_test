@@ -181,15 +181,13 @@
 						"name": "Reboot",
 						"inline": [
 							"echo ============== REBOOTING ==============",
-							"#sudo reboot",
+							"sudo reboot",
 							"echo ======================================="
 						]
 					},
 					{
 						"type": "Shell",
 						"name": "AfterBoot",
-						"expect_disconnect": true,
-						"start_retry_timeout": "10m",
 						"inline": [
 							"echo REBOOTED"
 						]
