@@ -181,8 +181,8 @@
 						"name": "Reboot",
 						"inline": [
 							"echo ============== REBOOTING ==============",
-							"sudo reboot",
-							"sleep 10m",
+							"#sudo reboot",
+							"#sleep 10m",
 							"echo ======================================="
 						]
 					},
