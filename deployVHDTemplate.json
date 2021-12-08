@@ -395,7 +395,7 @@
 	"outputs": {
 		"testResults":{
 			"type": "string",
-			"value": "Testing"
+			"value": "[reference('End').outputs.instanceView.value]"
 		}
 	}
 }
