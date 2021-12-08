@@ -339,7 +339,7 @@
 		{
 			"type": "Microsoft.Compute/virtualMachines/extensions",
 			"apiVersion": "2021-07-01",
-			"name": "[concat(parameters('vmName'),'/runtests')]",
+			"name": "runTests",
 			"location": "[parameters('location')]",
 			"dependsOn": [
 				"[resourceId('Microsoft.Compute/virtualMachines',parameters('vmName'))]"
@@ -363,7 +363,7 @@
 	"outputs": {
 		"testResults":{
 			"type": "string",
-			"value": "[reference(concat(parameters('vmName'),'/runtests')).outputs.text]"
+			"value": "[reference('runTests').outputs.text]"
 		}
 	}
 }
