@@ -363,7 +363,7 @@
 	"outputs": {
 		"testResults":{
 			"type": "string",
-			"value": "[reference(resourceId('Microsoft.Compute/virtualMachines',parameters('vmName'),'extensions/runtests'))]"
+			"value": "[reference(concat(parameters('vmName'),'/runtests')).outputs.text]"
 		}
 	}
 }
