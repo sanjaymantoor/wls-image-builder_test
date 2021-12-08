@@ -8,17 +8,11 @@
 				"description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated."
 			}
 		},
-		"_artifactsLocationAdminTemplate": {
+		"_artifactsLocationVHDTemplate": {
 			"defaultValue": "[if(contains(parameters('_artifactsLocation'), 'githubusercontent'), parameters('_artifactsLocation'), deployment().properties.templateLink.uri)]",
 			"type": "string",
 			"metadata": {
 				"description": "If we are deploying from the command line, use the passed in _artifactsLocation, otherwise use the default."
-			}
-		},
-		"_artifactsLocationSasToken": {
-			"type": "securestring",
-			"metadata": {
-				"description": "The sasToken required to access _artifactsLocation.  When the template is deployed using the accompanying scripts, a sasToken will be automatically generated. Use the defaultValue if the staging location is not secured."
 			}
 		},
 		"diskName": {
@@ -357,7 +351,7 @@
 				"typeHandlerVersion": "2.0",
 				"settings": {
 					"fileUris": [
-						"[uri(parameters('_artifactsLocationAdminTemplate'), concat('testBaseVM.sh',parameters('_artifactsLocationSasToken')))]"
+						"https://raw.githubusercontent.com/sanjaymantoor/wls-image-builder/master/testBaseVM.sh"
 					]
 				},
 				"protectedSettings": {
