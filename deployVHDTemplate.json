@@ -135,6 +135,7 @@
 		"name_networkSecurityGroup": "[concat(variables('name_vmLabelPrefix'), '-nsg')]",
 		"ref_networkSecurityGroup": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('name_networkSecurityGroup'))]",
 		"name_subnet": "Subnet",
+		"name_runTests": "[concat(parameters('vmName'),'/runtests')]",
 		"ref_subnet": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('name_virtualNetwork'), variables('name_subnet'))]",
 		"const_linuxConfiguration": {
 			"disablePasswordAuthentication": true,
@@ -363,7 +364,7 @@
 	"outputs": {
 		"testResults":{
 			"type": "string",
-			"value": "[reference(resourceid(concat('Microsoft.Compute/virtualMachines',parameters('vmName'),'/extensions/runtests')))]"
+			"value": "[reference(resourceid('Microsoft.Compute/virtualMachines',concat(parameters('vmName'),'/extensions/runtests'))))]"
 		}
 	}
 }
