@@ -365,7 +365,7 @@
 	"outputs": {
 		"testResults":{
 			"type": "string",
-			"value": "[reference(variables('output_extensions')).instanceView.statuses.message[0]]"
+			"value": "[reference(variables('output_extensions')).instanceView.statuses[0].message]"
 		}
 	}
 }
