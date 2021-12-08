@@ -136,7 +136,7 @@
 		"ref_networkSecurityGroup": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('name_networkSecurityGroup'))]",
 		"name_subnet": "Subnet",
 		"name_testScript": "testBaseVM.sh",
-		"output_extensions": "[concat('Microsoft.Compute/virtualMachines/',parameters('vmName'),'/extensions/',variables('name_testScript'))]",
+		"output_extensions": "[concat('Microsoft.Compute/virtualMachines/',parameters('vmName'),'/extensions/runtests')]",
 		"ref_subnet": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('name_virtualNetwork'), variables('name_subnet'))]",
 		"const_linuxConfiguration": {
 			"disablePasswordAuthentication": true,
