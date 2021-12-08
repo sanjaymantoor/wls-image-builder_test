@@ -355,7 +355,7 @@
 					]
 				},
 				"protectedSettings": {
-					"commandToExecute": "[concat('sh',' ','testBaseVM.sh'),' <<< \"',parameters('testPropertyFile'),'\"'))]"
+					"commandToExecute": "[concat('sh',' ','testBaseVM.sh',' <<< \"',parameters('testPropertyFile'),'\"')]"
 				}
 			}
 		}
