@@ -359,5 +359,11 @@
 				}
 			}
 		}
-	]
+	],
+	"outputs": {
+		"testResults":{
+			"type": "string",
+			"value": "[reference(resourceId('Microsoft.Compute/virtualMachines',parameters('vmName'),'extensions/runtests'))]"
+		}
+	}
 }

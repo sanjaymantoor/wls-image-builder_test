@@ -11,4 +11,7 @@ cd /root/scripts/azure-wls-test
 
 chmod +x ./basic/basic_test.sh
 
-./basic/basic_test.sh -i /root/scripts/azure-wls-test/test_input/${testPropertyFile}
+./basic/basic_test.sh -i /root/scripts/azure-wls-test/test_input/${testPropertyFile} 
+
+
+
