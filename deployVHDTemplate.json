@@ -8,7 +8,7 @@
 				"description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated."
 			}
 		},
-		"_artifactsLocationTemplate": {
+		"_artifactsLocationAdminTemplate": {
 			"defaultValue": "[if(contains(parameters('_artifactsLocation'), 'githubusercontent'), parameters('_artifactsLocation'), deployment().properties.templateLink.uri)]",
 			"type": "string",
 			"metadata": {
@@ -357,11 +357,11 @@
 				"typeHandlerVersion": "2.0",
 				"settings": {
 					"fileUris": [
-                  		"[uri(parameters('_artifactsLocationAdminTemplate'), concat('testBaseVM.sh',parameters('_artifactsLocationSasToken')))]"					
+						"[uri(parameters('_artifactsLocationAdminTemplate'), concat('testBaseVM.sh',parameters('_artifactsLocationSasToken')))]"
 					]
 				},
 				"protectedSettings": {
-					"commandToExecute": "[concat('sh',' ','testBaseVM.sh'),' <<< \"',parameters('testPropertyFile'),'\"')]"
+					"commandToExecute": "[concat('sh',' ','testBaseVM.sh'),' <<< \"',parameters('testPropertyFile'),'\"'))]"
 				}
 			}
 		}
