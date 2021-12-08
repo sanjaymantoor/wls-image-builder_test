@@ -376,7 +376,7 @@
 		},
       {
          "type": "Microsoft.Resources/deployments",
-         "apiVersion": "2021-07-01",
+         "apiVersion": "2021-04-01",
          "name": "End",
          "dependsOn": [
             "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('vmName'), 'runtests')]"
