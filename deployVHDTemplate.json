@@ -287,7 +287,8 @@
 			"location": "[parameters('location')]",
 			"dependsOn": [
 				"[resourceId('Microsoft.Storage/storageAccounts/', variables('name_storageAccount'))]",
-				"[resourceId('Microsoft.Network/networkInterfaces/', variables('name_nic'))]"
+				"[resourceId('Microsoft.Network/networkInterfaces/', variables('name_nic'))]",
+				"[resourceId('Microsoft.Compute/disks/', variables('name_diskName'))]"
 			],
 			"properties": {
 				"hardwareProfile": {
@@ -375,7 +376,7 @@
 			"type": "string",
 			"value": "[reference(variables('output_extensions')).instanceView.statuses[0].displayStatus]"
 		},
-		"testResults":{
+		"testResults": {
 			"type": "string",
 			"value": "[reference(variables('output_extensions')).instanceView.statuses[0].message]"
 		}
