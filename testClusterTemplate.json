@@ -88,8 +88,8 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                     "fileUris": [
-                        "[uri(parameters('_artifactsLocationTestClusterTemplate'), concat('test_input/',parameters('testDataFileName'), parameters('_artifactsLocationSasToken')))]",
-                        "[uri(parameters('_artifactsLocationTestClusterTemplate'), concat('cluster/',parameters('testScriptFileName'), parameters('_artifactsLocationSasToken')))]"
+                        "[uri(parameters('_artifactsLocationTestClusterTemplate'), concat('cluster/',parameters('testScriptFileName'), parameters('_artifactsLocationSasToken')))]",
+                        "[uri(parameters('_artifactsLocationTestClusterTemplate'), concat('test_input/',parameters('testDataFileName'), parameters('_artifactsLocationSasToken')))]"
                     ]
                 },
                 "protectedSettings": {
