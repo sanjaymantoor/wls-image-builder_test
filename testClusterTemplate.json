@@ -1,0 +1,95 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"_artifactsLocation": {
+			"type": "string",
+			"metadata": {
+				"description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated."
+			}
+		},
+		"_artifactsLocationTestClusterTemplate": {
+			"defaultValue": "[if(contains(parameters('_artifactsLocation'), 'githubusercontent'), parameters('_artifactsLocation'), deployment().properties.templateLink.uri)]",
+			"type": "string",
+			"metadata": {
+				"description": "If we are deploying from the command line, use the passed in _artifactsLocation, otherwise use the default."
+			}
+		},
+		"_artifactsLocationSasToken": {
+			"defaultValue": "",
+			"type": "securestring",
+			"metadata": {
+				"description": "The sasToken required to access _artifactsLocation.  When the template is deployed using the accompanying scripts, a sasToken will be automatically generated. Use the defaultValue if the staging location is not secured."
+			}
+		},
+		"adminUsername": {
+			"defaultValue": "weblogic",
+			"type": "string",
+			"metadata": {
+				"description": "User name for the Virtual Machine."
+			}
+		},
+		"adminVMName": {
+			"defaultValue": "adminVM",
+			"type": "string",
+			"metadata": {
+				"description": "Admin Server hosting VM name."
+			}
+		},
+		"authenticationType": {
+			"defaultValue": "password",
+			"type": "string",
+			"allowedValues": [
+				"sshPublicKey",
+				"password"
+			],
+			"metadata": {
+				"description": "Type of authentication to use on the Virtual Machine. SSH key is recommended."
+			}
+		},
+		"location": {
+			"type": "string",
+			"metadata": {
+				"description": "Location for all resources."
+			}
+		},
+		"testDataFileName": {
+			"type": "string",
+			"metadata": {
+				"description": "Test input parameters file name ."
+			}
+		},
+		"testScriptFileName": {
+			"type": "string",
+			"metadata": {
+				"description": "Test script file name ."
+			}
+		}
+	},
+	"variables": {
+		
+	},
+	"resources": [
+		{
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "apiVersion": "2020-06-01",
+            "name": "[concat(parameters('adminVMName'),'/newuserscript')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "publisher": "Microsoft.Azure.Extensions",
+                "type": "CustomScript",
+                "typeHandlerVersion": "2.0",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                    "fileUris": [
+                        "[uri(parameters('_artifactsLocationTestClusterTemplate'), concat('parameters('test_input/testDataFileName'), parameters('_artifactsLocationSasToken')))]",
+                        "[uri(parameters('_artifactsLocationTestClusterTemplate'), concat('parameters('cluster/testScriptFileName'), parameters('_artifactsLocationSasToken')))]"
+                    ]
+                },
+                "protectedSettings": {
+                    "commandToExecute": "[concat('sh',' ',parameters('testScriptFileName'),' <<<  parameters('testDataFileName')')]"
+                }
+            }
+		}
+	]
+}
