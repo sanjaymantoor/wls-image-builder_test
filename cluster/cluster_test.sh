@@ -2,8 +2,8 @@
 
 CLUSTER_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-source ${CLUSTER_DIR}/../utils/utils.sh
-source ${CLUSTER_DIR}/../utils/test_config.properties
+source ${CLUSTER_DIR}/utils.sh
+source ${CLUSTER_DIR}/test_config.properties
 
 function isServerRunning()
 {
