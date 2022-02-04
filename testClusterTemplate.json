@@ -48,11 +48,11 @@
 			}
 		},
 		"adminPasswordOrKey": {
-            "type": "securestring",
-            "metadata": {
-                "description": "SSH Key or password for the Virtual Machine. SSH key is recommended."
-            }
-        },
+			"type": "securestring",
+			"metadata": {
+				"description": "SSH Key or password for the Virtual Machine. SSH key is recommended."
+			}
+		},
 		"location": {
 			"type": "string",
 			"metadata": {
@@ -67,46 +67,47 @@
 		}
 	},
 	"variables": {
-		"name_testScript": "testClusterOffer.sh"
+		"name_testScript": "testClusterOffer.sh",
+		"output_extensions": "[concat('Microsoft.Compute/virtualMachines/',parameters('adminVMName'),'/extensions/runtests')]"
 	},
 	"resources": [
 		{
-            "type": "Microsoft.Compute/virtualMachines/extensions",
-            "apiVersion": "2020-06-01",
-            "name": "[concat(parameters('adminVMName'),'/newuserscript')]",
-            "location": "[parameters('location')]",
-            "properties": {
-                "publisher": "Microsoft.Azure.Extensions",
-                "type": "CustomScript",
-                "typeHandlerVersion": "2.0",
-                "autoUpgradeMinorVersion": true,
-                "settings": {
-                    "fileUris": [
-                        "[uri(parameters('_artifactsLocationTestClusterTemplate'), concat(variables('name_testScript'), parameters('_artifactsLocationSasToken')))]"
-                    ]
-                },
-                "protectedSettings": {
-                    "commandToExecute": "[concat('sh',' ',variables('name_testScript'),' <<< \"',parameters('testDataFileName'),'\"')]"
-                }
-            }
+			"type": "Microsoft.Compute/virtualMachines/extensions",
+			"apiVersion": "2020-06-01",
+			"name": "[concat(parameters('adminVMName'),'/runtests')]",
+			"location": "[parameters('location')]",
+			"properties": {
+				"publisher": "Microsoft.Azure.Extensions",
+				"type": "CustomScript",
+				"typeHandlerVersion": "2.0",
+				"autoUpgradeMinorVersion": true,
+				"settings": {
+					"fileUris": [
+						"[uri(parameters('_artifactsLocationTestClusterTemplate'), concat(variables('name_testScript'), parameters('_artifactsLocationSasToken')))]"
+					]
+				},
+				"protectedSettings": {
+					"commandToExecute": "[concat('sh',' ',variables('name_testScript'),' <<< \"',parameters('testDataFileName'),'\"')]"
+				}
+			}
 		}
 	],
 	"outputs": {
 		"testStatusCode": {
 			"type": "string",
-			"value": "[reference(concat(parameters('adminVMName'),'/newuserscript')).instanceView.statuses[0].code]"
+			"value": "[reference(variables('output_extensions')).instanceView.statuses[0].code]"
 		},
 		"testLevelCode": {
 			"type": "string",
-			"value": "[reference(concat(parameters('adminVMName'),'/newuserscript')).instanceView.statuses[0].level]"
+			"value": "[reference(variables('output_extensions')).instanceView.statuses[0].level]"
 		},
 		"testDisplayStatus": {
 			"type": "string",
-			"value": "[reference(concat(parameters('adminVMName'),'/newuserscript')).instanceView.statuses[0].displayStatus]"
+			"value": "[reference(variables('output_extensions')).instanceView.statuses[0].displayStatus]"
 		},
 		"testResults": {
 			"type": "string",
-			"value": "[reference(concat(parameters('adminVMName'),'/newuserscript')).instanceView.statuses[0].message]"
+			"value": "[reference(variables('output_extensions')).instanceView.statuses[0].message]"
 		}
-	}	
+	}
 }
