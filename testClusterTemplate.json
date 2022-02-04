@@ -64,16 +64,10 @@
 			"metadata": {
 				"description": "Test input parameters file name ."
 			}
-		},
-		"testScriptFileName": {
-			"type": "string",
-			"metadata": {
-				"description": "Test script file name ."
-			}
 		}
 	},
 	"variables": {
-		
+		"name_testScript": "testClusterOffer.sh"
 	},
 	"resources": [
 		{
@@ -88,14 +82,11 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                     "fileUris": [
-                    	"[uri(parameters('_artifactsLocationTestClusterTemplate'), concat('utils/test_config.properties', parameters('_artifactsLocationSasToken')))]",
-                        "[uri(parameters('_artifactsLocationTestClusterTemplate'), concat('utils/utils.sh', parameters('_artifactsLocationSasToken')))]",
-                        "[uri(parameters('_artifactsLocationTestClusterTemplate'), concat('cluster/',parameters('testScriptFileName'), parameters('_artifactsLocationSasToken')))]",
-                        "[uri(parameters('_artifactsLocationTestClusterTemplate'), concat('test_input/',parameters('testDataFileName'), parameters('_artifactsLocationSasToken')))]"
+                        "[uri(parameters('_artifactsLocationTestClusterTemplate'), concat(parameters('name_testScript'), parameters('_artifactsLocationSasToken')))]"
                     ]
                 },
                 "protectedSettings": {
-                    "commandToExecute": "[concat('sh',' ',parameters('testScriptFileName'),' -i ', parameters('testDataFileName'))]"
+                    "commandToExecute": "[concat('sh',' ',parameters('name_testScript'),' <<< \"',parameters('testDataFileName'),'\"')]"
                 }
             }
 		}
