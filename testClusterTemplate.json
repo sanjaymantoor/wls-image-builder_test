@@ -67,20 +67,19 @@
 		}
 	},
 	"variables": {
-		"name_testScript": "testClusterOffer.sh",
-		"output_extensions": "[concat('Microsoft.Compute/virtualMachines/',parameters('adminVMName'),'/extensions/runtests')]"
+		"name_testScript": "testClusterOffer.sh"
 	},
 	"resources": [
 		{
 			"type": "Microsoft.Compute/virtualMachines/extensions",
 			"apiVersion": "2021-07-01",
-			"name": "[concat(parameters('adminVMName'),'/runtests')]",
+			"name": "[concat(parameters('adminVMName'),'/newuserscript')]",
 			"location": "[parameters('location')]",
 			"properties": {
+				"autoUpgradeMinorVersion": true,
 				"publisher": "Microsoft.Azure.Extensions",
 				"type": "CustomScript",
 				"typeHandlerVersion": "2.0",
-				"autoUpgradeMinorVersion": true,
 				"settings": {
 					"fileUris": [
 						"[uri(parameters('_artifactsLocationTestClusterTemplate'), concat(variables('name_testScript'), parameters('_artifactsLocationSasToken')))]"
