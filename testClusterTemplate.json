@@ -67,7 +67,8 @@
 		}
 	},
 	"variables": {
-		"name_testScript": "testClusterOffer.sh"
+		"name_testScript": "testClusterOffer.sh",
+		"output_extensions": "[concat('Microsoft.Compute/virtualMachines/',parameters('vmName'),'/extensions/newuserscript')]"
 	},
 	"resources": [
 		{
@@ -90,5 +91,23 @@
 				}
 			}
 		}
-	]
+	],
+	"outputs": {
+		"testStatusCode": {
+			"type": "string",
+			"value": "[reference(variables('output_extensions')).instanceView.statuses[0].code]"
+		},
+		"testLevelCode": {
+			"type": "string",
+			"value": "[reference(variables('output_extensions')).instanceView.statuses[0].level]"
+		},
+		"testDisplayStatus": {
+			"type": "string",
+			"value": "[reference(variables('output_extensions')).instanceView.statuses[0].displayStatus]"
+		},
+		"testResults": {
+			"type": "string",
+			"value": "[reference(variables('output_extensions')).instanceView.statuses[0].message]"
+		}
+	}
 }
