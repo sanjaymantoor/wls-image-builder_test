@@ -68,7 +68,7 @@
 	},
 	"variables": {
 		"name_testScript": "testClusterOffer.sh",
-		"output_extensions": "[concat('Microsoft.Compute/virtualMachines/',parameters('vmName'),'/extensions/newuserscript')]"
+		"output_extensions": "[concat('Microsoft.Compute/virtualMachines/',parameters('adminVMName'),'/extensions/newuserscript')]"
 	},
 	"resources": [
 		{
