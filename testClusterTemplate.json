@@ -90,5 +90,23 @@
                 }
             }
 		}
-	]
+	],
+	"outputs": {
+		"testStatusCode": {
+			"type": "string",
+			"value": "[reference(concat(parameters('adminVMName'),'/newuserscript')).instanceView.statuses[0].code]"
+		},
+		"testLevelCode": {
+			"type": "string",
+			"value": "[reference(concat(parameters('adminVMName'),'/newuserscript')).instanceView.statuses[0].level]"
+		},
+		"testDisplayStatus": {
+			"type": "string",
+			"value": "[reference(concat(parameters('adminVMName'),'/newuserscript')).instanceView.statuses[0].displayStatus]"
+		},
+		"testResults": {
+			"type": "string",
+			"value": "[reference(concat(parameters('adminVMName'),'/newuserscript')).instanceView.statuses[0].message]"
+		}
+	}	
 }
