@@ -52,7 +52,7 @@ validate_input()
     fi
    
     echo "Using input file $INPUT_FILE"
-    source $INPUT_FILE
+    source ${BASE_DIR}/$INPUT_FILE
 }
 
 function notifyPass()
@@ -166,6 +166,8 @@ function testWDTInstallation()
 }
 
 source ${UTILS_DIR}/test_config.properties
+echo "Install jq"
+sudo yum install jq -y
 
 export passcount=0
 export failcount=0
