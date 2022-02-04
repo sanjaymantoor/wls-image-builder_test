@@ -82,7 +82,7 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                     "fileUris": [
-                        "[uri(parameters('_artifactsLocationTestClusterTemplate'), concat(parameters('name_testScript'), parameters('_artifactsLocationSasToken')))]"
+                        "[uri(parameters('_artifactsLocationTestClusterTemplate'), concat(variables('name_testScript'), parameters('_artifactsLocationSasToken')))]"
                     ]
                 },
                 "protectedSettings": {
