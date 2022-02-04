@@ -95,7 +95,7 @@
                     ]
                 },
                 "protectedSettings": {
-                    "commandToExecute": "[concat('sh',' ',parameters('testScriptFileName'),' <<< \"', parameters('testDataFileName'),'\"')]"
+                    "commandToExecute": "[concat('sh',' ',parameters('testScriptFileName'),' -i ', parameters('testDataFileName'))]"
                 }
             }
 		}
